@@ -26,7 +26,7 @@ export function SampleData() {
             task : 'sessions',
             createdOn : '1/10/2019',
             important : false,
-            dueDate : '15/10/2019'
+            dueDate : '13/10/2019'
         },
 
     ];
