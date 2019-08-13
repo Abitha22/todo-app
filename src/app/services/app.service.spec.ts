@@ -3,6 +3,7 @@ import { TestBed, inject } from '@angular/core/testing';
 import { AppService } from './app.service';
 import { Tasks } from '../data/tasks';
 import { Task } from '../models/Task';
+import { Title } from '@angular/platform-browser';
 
 describe('AppService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
@@ -110,7 +111,7 @@ describe('AppService', () => {
     });
     it('should be able to add tasks in addTask()', () => {
       const service: AppService = TestBed.get(AppService);
-      const task: Task = {
+      const task = {
         id: Tasks.length + 1,
         title: 'session',
         createdOn: '13/09/2019',
@@ -130,7 +131,7 @@ describe('AppService', () => {
     });
     it('should able to delete tasks', () => {
       const service: AppService = TestBed.get(AppService);
-      service.tasks = Task[];
+      service.tasks = Tasks;
       expect(service.deleteTask(1)).toBeTruthy();
     });
   });
