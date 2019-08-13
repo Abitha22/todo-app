@@ -2,8 +2,6 @@ import { TestBed, inject } from '@angular/core/testing';
 
 import { AppService } from './app.service';
 import { Tasks } from '../data/tasks';
-import { Task } from '../models/Task';
-import { Title } from '@angular/platform-browser';
 
 describe('AppService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
@@ -55,9 +53,9 @@ describe('AppService', () => {
     it('should return a array of tasks based on seleted dueDate & createdOn', inject([AppService], (service: AppService) => {
       service.tasks = Tasks;
       const task = {
-        createdOn: '22/09/2019',
-        important: false,
-        dueDate: '22/09/2019'
+        createdOn : '22/09/2019',
+        important : false,
+        dueDate : '22/09/2019'
       };
       const getTasks = service.getTask(task);
       expect(getTasks).toBeTruthy();
@@ -65,9 +63,9 @@ describe('AppService', () => {
     it('should return a array of tasks based on seleted dueDate & createdOn & important', inject([AppService], (service: AppService) => {
       service.tasks = Tasks;
       const task = {
-        createdOn: '25/09/2019',
-        important: true,
-        dueDate: '25/09/2019'
+        createdOn : '25/09/2019',
+        important : true,
+        dueDate : '25/09/2019'
       };
       const getTasks = service.getTask(task);
       expect(getTasks).toBe('');
@@ -80,14 +78,14 @@ describe('AppService', () => {
     }));
 
     it('should take the parameter', inject([AppService], (service: AppService) => {
-      const updateTask: Task = {
+      const updateTask = {
         id: 1,
         title: 'meeting',
         createdOn: '12/08/2019',
         important: true,
         dueDate: '12/08/2019'
       };
-      expect(() => { service.updateTask(updateTask)}).not.toThrowError(Error);
+      expect(() => { service.updateTask( updateTask )}).not.toThrowError(Error);
     }));
     it('should update the task based on th id', inject([AppService], (service: AppService) => {
 
@@ -133,6 +131,6 @@ describe('AppService', () => {
       const service: AppService = TestBed.get(AppService);
       service.tasks = Tasks;
       expect(service.deleteTask(1)).toBeTruthy();
-    });
+   });
   });
 });

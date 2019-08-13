@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Tasks } from '../data/tasks';
-import { FilterType } from '../models/filterType';
+import { Filter } from '../models/filter';
 import { Task } from '../models/task';
 
 @Injectable({
@@ -14,7 +14,7 @@ export class AppService {
     this.tasks = Tasks;
     console.log(this.tasks);
   }
-  getTask(filterTaskType?: FilterType) {
+  getTask(filterTaskType?: Filter) {
     if (filterTaskType) {
       if (filterTaskType.important) {
         this.getFilterTasks = this.tasks.filter(task => task.important === filterTaskType.important);
