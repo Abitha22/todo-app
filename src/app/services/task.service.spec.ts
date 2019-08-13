@@ -10,4 +10,8 @@ describe('AppService', () => {
     const service: TaskService = TestBed.get(TaskService);
     expect(service).toBeTruthy();
   });
+  it('should have a Method getTask()', () => {
+    const service: TaskService = TestBed.get(TaskService);
+    expect(typeof service.getTask).toBe('function');
+  });
 });
