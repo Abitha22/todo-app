@@ -35,4 +35,10 @@ describe('TaskService', () => {
     const expectedTasks = tasks.filter(task => task.important === true);
     expect(service.getTask({createdOn: '', important: true, dueDate: ''})).toEqual(expectedTasks);
   });
+  it('should be able to get unimportant tasks', () => {
+    const service: TaskService = TestBed.get(TaskService);
+    const result = service.getTask({createdOn: '', important: false, dueDate: ''});
+    const expectedTasks = Tasks.filter(tasks => tasks.important === false);
+    expect(result).toEqual(expectedTasks);
+  });
  });
