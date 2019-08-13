@@ -81,7 +81,7 @@ describe('AppService', () => {
     it('should take the parameter', inject([AppService], (service: AppService) => {
       const updateTask = {
         id: 1,
-        task: 'meeting',
+        title: 'meeting',
         createdOn: '12/08/2019',
         important: true,
         dueDate: '12/08/2019'
