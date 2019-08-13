@@ -110,11 +110,11 @@ describe('AppService', () => {
     it('should be able to add tasks in addTask()', () => {
       const service: AppService = TestBed.get(AppService);
       const task = {
-          id : Tasks.length + 1,
-          title : 'session',
-          createdOn : '13/09/2019',
-          important : true,
-          dueDate : '13/09/2019'
+        id: Tasks.length + 1,
+        title: 'session',
+        createdOn: '13/09/2019',
+        important: true,
+        dueDate: '13/09/2019'
       };
       service.tasks = Tasks;
       const tasks = service.addTask(task);
