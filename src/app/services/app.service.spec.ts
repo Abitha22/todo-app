@@ -1,7 +1,8 @@
 import { TestBed, inject } from '@angular/core/testing';
 
 import { AppService } from './app.service';
-import { SampleData } from '../sampleData/sampleTaskData';
+import { Tasks } from '../data/tasks';
+
 
 describe('AppService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
@@ -15,12 +16,12 @@ describe('AppService', () => {
       expect(typeof service.getTask).toBe('function');
     }));
     it('should return a array of tasks', inject([AppService], (service: AppService) => {
-      service.tasks = SampleData();
+      service.tasks = Tasks;
       const tasks = service.getTask();
-      expect(tasks).toEqual(SampleData());
+      expect(tasks).toEqual(Tasks);
     }));
     it('should return a array of tasks which are important', inject([AppService], (service: AppService) => {
-      service.tasks = SampleData();
+      service.tasks = Tasks;
       const task = {
         createdOn: '',
         important: true,
@@ -31,7 +32,7 @@ describe('AppService', () => {
       expect(getTasks).toBeTruthy();
     }));
     it('should return a array of tasks based on seleted duedate', inject([AppService], (service: AppService) => {
-      service.tasks = SampleData();
+      service.tasks = Tasks;
       const task = {
         createdOn: '',
         important: false,
@@ -41,7 +42,7 @@ describe('AppService', () => {
       expect(getTasks).toBeTruthy();
     }));
     it('should return a array of tasks based on seleted duedate', inject([AppService], (service: AppService) => {
-      service.tasks = SampleData();
+      service.tasks = Tasks;
       const task = {
         createdOn: '1/10/2019',
         important: false,
@@ -51,7 +52,7 @@ describe('AppService', () => {
       expect(getTasks).toBeTruthy();
     }));
     it('should return a array of tasks based on seleted dueDate & createdOn', inject([AppService], (service: AppService) => {
-      service.tasks = SampleData();
+      service.tasks = Tasks;
       const task = {
         createdOn: '22/09/2019',
         important: false,
@@ -61,7 +62,7 @@ describe('AppService', () => {
       expect(getTasks).toBeTruthy();
     }));
     it('should return a array of tasks based on seleted dueDate & createdOn & important', inject([AppService], (service: AppService) => {
-      service.tasks = SampleData();
+      service.tasks = Tasks;
       const task = {
         createdOn: '25/09/2019',
         important: true,
@@ -110,13 +111,13 @@ describe('AppService', () => {
     it('should be able to add tasks in addTask()', () => {
       const service: AppService = TestBed.get(AppService);
       const task = {
-        id: SampleData().length + 1,
-        task: 'session',
+        id: Tasks.length + 1,
+        title: 'session',
         createdOn: '13/09/2019',
         important: true,
         dueDate: '13/09/2019'
       };
-      service.tasks = SampleData();
+      service.tasks = Tasks;
       const tasks = service.addTask(task);
       expect(tasks).toBeTruthy();
     });
@@ -129,7 +130,7 @@ describe('AppService', () => {
     });
     it('should able to delete tasks', () => {
       const service: AppService = TestBed.get(AppService);
-      service.tasks = SampleData();
+      service.tasks = Tasks;
       expect(service.deleteTask(1)).toBeTruthy();
     });
   });
