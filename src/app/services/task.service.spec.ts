@@ -23,4 +23,9 @@ describe('TaskService', () => {
     const task = service.getTask();
     expect(task).toBe(Tasks);
   });
+  it('getTask() should accept a filter as argument', () => {
+    const service: TaskService = TestBed.get(TaskService);
+    const task = service.getTask();
+    expect(service.getTask({createdOn:'', important: true, dueDate: ''})).toBeTruthy();
+  });
  });
