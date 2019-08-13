@@ -28,6 +28,41 @@ export function SampleData() {
             important : false,
             dueDate : '13/10/2019'
         },
+        {
+            id : 5,
+            task : 'session on ionic',
+            createdOn : '13/09/2019',
+            important : true,
+            dueDate : '15/09/2019'
+        },
+        {
+            id : 6,
+            task : 'session on angular',
+            createdOn : '13/09/2019',
+            important : true,
+            dueDate : '15/09/2019'
+        },
+        {
+            id : 7,
+            task : 'session',
+            createdOn : '13/09/2019',
+            important : true,
+            dueDate : '13/09/2019'
+        },
+        {
+            id : 8,
+            task : 'session',
+            createdOn : '22/09/2019',
+            important : false,
+            dueDate : '22/09/2019'
+        },
+        {
+            id : 9,
+            task : 'session',
+            createdOn : '25/09/2019',
+            important : true,
+            dueDate : '25/09/2019'
+        },
 
     ];
     return sampleTasksData;

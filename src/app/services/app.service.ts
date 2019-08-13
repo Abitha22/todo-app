@@ -17,7 +17,7 @@ export class AppService {
   getTask(filterTaskType?: FilterType) {
     if (filterTaskType) {
       if (filterTaskType.important) {
-        this.getFilterTasks = this.tasks.filter(task => task.important === true);
+        this.getFilterTasks = this.tasks.filter(task => task.important === filterTaskType.important);
         console.log(this.getFilterTasks);
         return this.getFilterTasks;
         }
@@ -28,6 +28,18 @@ export class AppService {
         }
       if (filterTaskType.createdOn) {
           this.getFilterTasks = this.tasks.filter(task => task.createdOn === filterTaskType.createdOn);
+          console.log(this.getFilterTasks);
+          return this.getFilterTasks;
+        }
+      if (filterTaskType.createdOn && filterTaskType.dueDate) {
+          this.getFilterTasks = this.tasks.filter(task => task.createdOn === filterTaskType.createdOn &&
+                                                          task.dueDate === filterTaskType.dueDate);
+          console.log(this.getFilterTasks);
+          return this.getFilterTasks;
+        }  else if (filterTaskType.createdOn && filterTaskType.dueDate && filterTaskType.important) {
+          this.getFilterTasks = this.tasks.filter(task => task.createdOn === filterTaskType.createdOn &&
+                                                          task.dueDate === filterTaskType.dueDate &&
+                                                          task.important === filterTaskType.important );
           console.log(this.getFilterTasks);
           return this.getFilterTasks;
         }

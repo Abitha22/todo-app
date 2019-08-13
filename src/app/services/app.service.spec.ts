@@ -50,6 +50,26 @@ describe('AppService', () => {
       const getTasks = service.getTask(task);
       expect(getTasks).toBeTruthy();
     }));
+    it('should return a array of tasks based on seleted dueDate & createdOn', inject([AppService], (service: AppService) => {
+      service.tasks = SampleData();
+      const task = {
+        createdOn : '22/09/2019',
+        important : false,
+        dueDate : '22/09/2019'
+      };
+      const getTasks = service.getTask(task);
+      expect(getTasks).toBeTruthy();
+    }));
+    it('should return a array of tasks based on seleted dueDate & createdOn & important', inject([AppService], (service: AppService) => {
+      service.tasks = SampleData();
+      const task = {
+        createdOn : '25/09/2019',
+        important : true,
+        dueDate : '25/09/2019'
+      };
+      const getTasks = service.getTask(task);
+      expect(getTasks).toBe('');
+    }));
   });
 
   describe('updateTask', () => {
