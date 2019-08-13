@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { SampleData } from '../sampleData/sampleTaskData';
 import { FilterType } from '../models/filterType';
-import { TaskModel } from '../models/TaskModel';
+import { Task } from '../models/Task';
 
 @Injectable({
   providedIn: 'root'
@@ -46,7 +46,7 @@ export class AppService {
     }
     return this.tasks;
    }
-  addTask(task: TaskModel) {
+  addTask(task: Task) {
     this.tasks = SampleData();
     this.tasks.push(task);
     return this.tasks;
@@ -58,7 +58,7 @@ export class AppService {
     this.tasks.splice(index, 1);
     return this.tasks;
   }
-  updateTask(updateTask: TaskModel) {
+  updateTask(updateTask: Task) {
     for (const task of this.tasks) {
       if (updateTask.id === task.id) {
         task.task = updateTask.task;
