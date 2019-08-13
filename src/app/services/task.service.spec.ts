@@ -11,14 +11,15 @@ describe('AppService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should have a  getTask()', () => {
+  it('should have a Method getTask()', () => {
     const service: TaskService = TestBed.get(TaskService);
     expect(typeof service.getTask).toBe('function');
   });
 
-  it('should return a array', () => {
+  it('should return  type array', () => {
     const service: TaskService = TestBed.get(TaskService);
     const result = service.getTask();
     expect(Array.isArray(result)).toBe(true);
   });
+
 });
