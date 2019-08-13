@@ -20,7 +20,7 @@ describe('AppService', () => {
       const tasks = service.getTask();
       expect(tasks).toEqual(SampleData());
     }));
-  })
+  });
   describe('updateTask', () => {
     it('should have method updateTask', inject([AppService], (service: AppService) => {
       expect(typeof service.updateTask).toBe('function');
@@ -33,11 +33,11 @@ describe('AppService', () => {
         createdOn: '12/08/2019',
         important: true,
         dueDate: '12/08/2019'
-      }
+      };
       expect(() => { service.updateTask(updateTask) }).not.toThrowError(Error);
     }));
     it('should update the task based on th id', inject([AppService], (service: AppService) => {
-      
+
       // const updateTask = {
       //   id: 1,
       //   task: 'meeting is among the team',
@@ -49,5 +49,26 @@ describe('AppService', () => {
       // service.updateTask(updateTask)
       // expect()
     }));
-  })
-})
+  });
+
+  describe('Add tasks', () => {
+    it('should have addTasks()', () => {
+      const service: AppService = TestBed.get(AppService);
+      expect(typeof service.addTask).toBe('function');
+    });
+    // it('should be able to add tasks in addTask()', () => {
+    //   const service: AppService = TestBed.get(AppService);
+    //   const task = {
+    //       // id : SampleData().length + 1,
+    //       id : 5,
+    //       task : 'session',
+    //       createdOn : '13/09/2019',
+    //       important : true,
+    //       dueDate : '13/09/2019'
+    //   };
+    //   service.tasks = SampleData();
+    //   const tasks = service.addTask(task);
+    //   expect(tasks).toBe('');
+    // });
+  });
+});

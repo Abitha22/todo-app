@@ -7,22 +7,25 @@ import { TaskModel } from '../models/TaskModel';
   providedIn: 'root'
 })
 export class AppService {
-  tasks = []
   constructor() { }
+  tasks = [];
+  getFilterTask = [];
   setTask() {
     this.tasks = SampleData();
-    console.log(this.tasks)
+    console.log(this.tasks);
   }
-  getFilterTask = []
   getTask(filterTaskType?: FilterType) {
 
     return this.tasks;
 
   }
+  addTask(task: TaskModel) {
+    this.tasks.push(task);
+  }
   updateTask(updateTask: TaskModel) {
     for (let i = 0; i < this.tasks.length; i++) {
       if (updateTask.id === this.tasks[i].id) {
-        this.tasks[i].task = updateTask.task
+        this.tasks[i].task = updateTask.task;
       }
     }
   }
