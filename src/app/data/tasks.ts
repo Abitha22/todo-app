@@ -1,5 +1,5 @@
-export function SampleData() {
-    const sampleTasksData = [
+
+  export  const Tasks = [
         {
             id : 1,
             task : 'meeting',
@@ -65,5 +65,4 @@ export function SampleData() {
         },
 
     ];
-    return sampleTasksData;
-    }
+
