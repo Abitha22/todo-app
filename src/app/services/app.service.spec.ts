@@ -107,19 +107,30 @@ describe('AppService', () => {
       const service: AppService = TestBed.get(AppService);
       expect(typeof service.addTask).toBe('function');
     });
-    // it('should be able to add tasks in addTask()', () => {
-    //   const service: AppService = TestBed.get(AppService);
-    //   const task = {
-    //       // id : SampleData().length + 1,
-    //       id : 5,
-    //       task : 'session',
-    //       createdOn : '13/09/2019',
-    //       important : true,
-    //       dueDate : '13/09/2019'
-    //   };
-    //   service.tasks = SampleData();
-    //   const tasks = service.addTask(task);
-    //   expect(tasks).toBe('');
-    // });
+    it('should be able to add tasks in addTask()', () => {
+      const service: AppService = TestBed.get(AppService);
+      const task = {
+          id : SampleData().length + 1,
+          task : 'session',
+          createdOn : '13/09/2019',
+          important : true,
+          dueDate : '13/09/2019'
+      };
+      service.tasks = SampleData();
+      const tasks = service.addTask(task);
+      expect(tasks).toBeTruthy();
+    });
+  });
+
+  describe('Delete tasks', () => {
+    it('should have deleteTasks()', () => {
+      const service: AppService = TestBed.get(AppService);
+      expect(typeof service.deleteTask).toBe('function');
+    });
+    it('should able to delete tasks', () => {
+      const service: AppService = TestBed.get(AppService);
+      service.tasks = SampleData();
+      expect(service.deleteTask(1)).toBeTruthy();
+   });
   });
 });

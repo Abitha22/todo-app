@@ -35,7 +35,16 @@ export class AppService {
     return this.tasks;
    }
   addTask(task: TaskModel) {
+    this.tasks = SampleData();
     this.tasks.push(task);
+    return this.tasks;
+  }
+
+  deleteTask(id) {
+    this.tasks = SampleData();
+    const index = this.tasks.findIndex(task => task.id === id);
+    this.tasks.splice(index, 1);
+    return this.tasks;
   }
   updateTask(updateTask: TaskModel) {
     for (const task of this.tasks) {
