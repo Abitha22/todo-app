@@ -53,9 +53,9 @@ describe('AppService', () => {
     it('should return a array of tasks based on seleted dueDate & createdOn', inject([AppService], (service: AppService) => {
       service.tasks = SampleData();
       const task = {
-        createdOn : '22/09/2019',
-        important : false,
-        dueDate : '22/09/2019'
+        createdOn: '22/09/2019',
+        important: false,
+        dueDate: '22/09/2019'
       };
       const getTasks = service.getTask(task);
       expect(getTasks).toBeTruthy();
@@ -63,9 +63,9 @@ describe('AppService', () => {
     it('should return a array of tasks based on seleted dueDate & createdOn & important', inject([AppService], (service: AppService) => {
       service.tasks = SampleData();
       const task = {
-        createdOn : '25/09/2019',
-        important : true,
-        dueDate : '25/09/2019'
+        createdOn: '25/09/2019',
+        important: true,
+        dueDate: '25/09/2019'
       };
       const getTasks = service.getTask(task);
       expect(getTasks).toBe('');
@@ -110,11 +110,11 @@ describe('AppService', () => {
     it('should be able to add tasks in addTask()', () => {
       const service: AppService = TestBed.get(AppService);
       const task = {
-          id : SampleData().length + 1,
-          task : 'session',
-          createdOn : '13/09/2019',
-          important : true,
-          dueDate : '13/09/2019'
+        id: SampleData().length + 1,
+        task: 'session',
+        createdOn: '13/09/2019',
+        important: true,
+        dueDate: '13/09/2019'
       };
       service.tasks = SampleData();
       const tasks = service.addTask(task);
@@ -131,6 +131,6 @@ describe('AppService', () => {
       const service: AppService = TestBed.get(AppService);
       service.tasks = SampleData();
       expect(service.deleteTask(1)).toBeTruthy();
-   });
+    });
   });
 });

@@ -20,39 +20,39 @@ export class AppService {
         this.getFilterTasks = this.tasks.filter(task => task.important === filterTaskType.important);
         console.log(this.getFilterTasks);
         return this.getFilterTasks;
-        }
+      }
       if (filterTaskType.dueDate) {
-          this.getFilterTasks = this.tasks.filter(task => task.dueDate === filterTaskType.dueDate);
-          console.log(this.getFilterTasks);
-          return this.getFilterTasks;
-        }
+        this.getFilterTasks = this.tasks.filter(task => task.dueDate === filterTaskType.dueDate);
+        console.log(this.getFilterTasks);
+        return this.getFilterTasks;
+      }
       if (filterTaskType.createdOn) {
-          this.getFilterTasks = this.tasks.filter(task => task.createdOn === filterTaskType.createdOn);
-          console.log(this.getFilterTasks);
-          return this.getFilterTasks;
-        }
+        this.getFilterTasks = this.tasks.filter(task => task.createdOn === filterTaskType.createdOn);
+        console.log(this.getFilterTasks);
+        return this.getFilterTasks;
+      }
       if (filterTaskType.createdOn && filterTaskType.dueDate) {
-          this.getFilterTasks = this.tasks.filter(task => task.createdOn === filterTaskType.createdOn &&
-                                                          task.dueDate === filterTaskType.dueDate);
-          console.log(this.getFilterTasks);
-          return this.getFilterTasks;
-        }  else if (filterTaskType.createdOn && filterTaskType.dueDate && filterTaskType.important) {
-          this.getFilterTasks = this.tasks.filter(task => task.createdOn === filterTaskType.createdOn &&
-                                                          task.dueDate === filterTaskType.dueDate &&
-                                                          task.important === filterTaskType.important );
-          console.log(this.getFilterTasks);
-          return this.getFilterTasks;
-        }
+        this.getFilterTasks = this.tasks.filter(task => task.createdOn === filterTaskType.createdOn &&
+          task.dueDate === filterTaskType.dueDate);
+        console.log(this.getFilterTasks);
+        return this.getFilterTasks;
+      } else if (filterTaskType.createdOn && filterTaskType.dueDate && filterTaskType.important) {
+        this.getFilterTasks = this.tasks.filter(task => task.createdOn === filterTaskType.createdOn &&
+          task.dueDate === filterTaskType.dueDate &&
+          task.important === filterTaskType.important);
+        console.log(this.getFilterTasks);
+        return this.getFilterTasks;
+      }
     }
     return this.tasks;
-   }
+  }
   addTask(task: TaskModel) {
     this.tasks = SampleData();
     this.tasks.push(task);
     return this.tasks;
   }
 
-  deleteTask(id) {
+  deleteTask(id: number) {
     this.tasks = SampleData();
     const index = this.tasks.findIndex(task => task.id === id);
     this.tasks.splice(index, 1);
