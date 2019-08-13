@@ -1,12 +1,12 @@
-export class TaskModal {
-    task;
-    createdOn;
-    important;
-    duedate;
-constructor(task: string ,  createdOn: string , important: boolean, Duedate: string) {
+export class TaskModel {
+    task: string;
+    createdOn: string;
+    important: boolean;
+    dueDate: string;
+constructor(task: string ,  createdOn: string , important: boolean, dueDate: string) {
     this.task = task;
     this.createdOn = createdOn;
     this.important = important;
-    this.duedate = Duedate;
+    this.dueDate = dueDate;
 }
-}
+ }
