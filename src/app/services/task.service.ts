@@ -8,6 +8,7 @@ import { Filter } from '../models/filter';
   providedIn: 'root'
 })
 export class TaskService {
+
   getTask(filter?: Filter): Array<Task> {
     if (filter) {
       if (filter.dueDate) {

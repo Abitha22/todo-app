@@ -1,6 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { TaskService } from './task.service';
 import { Tasks } from '../data/tasks';
+import {Filter} from '../models/filter';
 
 describe('TaskService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
@@ -28,7 +29,13 @@ describe('TaskService', () => {
     const task = service.getTask();
     expect(service.getTask({createdOn: '', important: true, dueDate: ''})).toBeTruthy();
   });
-  it('should be able to get unimportent tasks', () => {
+  it('should be able to get the tasks filtered based on important as true' , () => {
+    const service: TaskService = TestBed.get(TaskService);
+    const tasks = service.getTask();
+    const expectedTasks = tasks.filter(task => task.important === true);
+    expect(service.getTask({createdOn: '', important: true, dueDate: ''})).toEqual(expectedTasks);
+  });
+  it('should be able to get unimportant tasks', () => {
     const service: TaskService = TestBed.get(TaskService);
     const result = service.getTask({createdOn: '', important: false, dueDate: ''});
     const expectedTasks = Tasks.filter(tasks => tasks.important === false);
@@ -40,7 +47,7 @@ describe('TaskService', () => {
     const expectedTasks = Tasks.filter(tasks => tasks.important === true);
     expect(result).toEqual(expectedTasks);
   });
-  it('should be able to get importent tasks', () => {
+  it('should be able to get dueDate tasks', () => {
     const service: TaskService = TestBed.get(TaskService);
     const result = service.getTask({createdOn: '', important: true, dueDate: '12/08/2019'});
     const expectedTasks = Tasks.filter(tasks => tasks.dueDate === '12/08/2019');
