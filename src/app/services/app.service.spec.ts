@@ -1,7 +1,6 @@
 import { TestBed, inject } from '@angular/core/testing';
 
 import { AppService } from './app.service';
-import { TaskModel } from '../models/TaskModel';
 import { SampleData } from '../sampleData/sampleTaskData';
 
 describe('AppService', () => {
@@ -20,7 +19,59 @@ describe('AppService', () => {
       const tasks = service.getTask();
       expect(tasks).toEqual(SampleData());
     }));
+    it('should return a array of tasks which are important', inject([AppService], (service: AppService) => {
+      service.tasks = SampleData();
+      const task = {
+        createdOn: '',
+        important: true,
+        dueDate: ''
+      };
+      const tasks = SampleData();
+      const filterdTasks = [];
+      for (const filterTask of tasks) {
+        if (filterTask.important) {
+          filterdTasks.push(filterTask);
+        }
+      }
+      const getTasks = service.getTask(task);
+      expect(getTasks.length).toEqual(filterdTasks.length);
+    }));
+    it('should return a array of tasks based on seleted duedate', inject([AppService], (service: AppService) => {
+      service.tasks = SampleData();
+      const task = {
+        createdOn: '',
+        important: false,
+        dueDate: '13/10/2019'
+      };
+      const tasks = SampleData();
+      const filterdTasks = [];
+      for (const filterTask of tasks) {
+        if (filterTask.dueDate === task.dueDate) {
+          filterdTasks.push(filterTask);
+        }
+      }
+      const getTasks = service.getTask(task);
+      expect(getTasks.length).toEqual(filterdTasks.length);
+    }));
+    it('should return a array of tasks based on seleted duedate', inject([AppService], (service: AppService) => {
+      service.tasks = SampleData();
+      const task = {
+        createdOn: '1/10/2019',
+        important: false,
+        dueDate: ''
+      };
+      const tasks = SampleData();
+      const filterdTasks = [];
+      for (const filterTask of tasks) {
+        if (filterTask.createdOn === task.createdOn) {
+          filterdTasks.push(filterTask);
+        }
+      }
+      const getTasks = service.getTask(task);
+      expect(getTasks.length).toEqual(filterdTasks.length);
+    }));
   });
+
   describe('updateTask', () => {
     it('should have method updateTask', inject([AppService], (service: AppService) => {
       expect(typeof service.updateTask).toBe('function');
