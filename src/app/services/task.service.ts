@@ -9,7 +9,5 @@ import { Task } from '../models/task';
 export class TaskService {
   getTask(): Array<Task> {
     return Tasks;
-  }
-
 }
-
+}
