@@ -1,13 +1,7 @@
 import { Injectable } from '@angular/core';
-<<<<<<< HEAD
-import { SampleData } from '../sampleData/sampleTaskData';
-import { Filter } from '../models/filter';
-import { TaskModel } from '../models/TaskModel';
-=======
 import { Tasks } from '../data/tasks';
-import { FilterType } from '../models/filterType';
+import { Filter } from '../models/filter';
 import { TaskModel } from '../models/task';
->>>>>>> f6c5179840ef060e05d7f74f637bacb348e7dbc9
 
 @Injectable({
   providedIn: 'root'
