@@ -9,6 +9,12 @@ import {Filter} from '../models/filter';
 })
 export class TaskService {
   getTask(filter ?: Filter): Array<Task> {
+    if (filter) {
+      if (filter.important) {
+      const getFilteredTasks = Tasks.filter(task => task.important === true);
+      return getFilteredTasks;
+      }
+    }
     return Tasks;
 }
 }
