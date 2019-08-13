@@ -7,6 +7,9 @@ import { Task } from '../models/task';
   providedIn: 'root'
 })
 export class TaskService {
- 
+
+  getTask() {
+    return [];
+  }
 }
 
