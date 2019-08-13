@@ -26,15 +26,9 @@ describe('AppService', () => {
         important: true,
         dueDate: ''
       };
-      const tasks = SampleData();
-      const filterdTasks = [];
-      for (const filterTask of tasks) {
-        if (filterTask.important) {
-          filterdTasks.push(filterTask);
-        }
-      }
+
       const getTasks = service.getTask(task);
-      expect(getTasks.length).toEqual(filterdTasks.length);
+      expect(getTasks).toBeTruthy();
     }));
     it('should return a array of tasks based on seleted duedate', inject([AppService], (service: AppService) => {
       service.tasks = SampleData();
@@ -43,15 +37,8 @@ describe('AppService', () => {
         important: false,
         dueDate: '13/10/2019'
       };
-      const tasks = SampleData();
-      const filterdTasks = [];
-      for (const filterTask of tasks) {
-        if (filterTask.dueDate === task.dueDate) {
-          filterdTasks.push(filterTask);
-        }
-      }
       const getTasks = service.getTask(task);
-      expect(getTasks.length).toEqual(filterdTasks.length);
+      expect(getTasks).toBeTruthy();
     }));
     it('should return a array of tasks based on seleted duedate', inject([AppService], (service: AppService) => {
       service.tasks = SampleData();
@@ -60,15 +47,8 @@ describe('AppService', () => {
         important: false,
         dueDate: ''
       };
-      const tasks = SampleData();
-      const filterdTasks = [];
-      for (const filterTask of tasks) {
-        if (filterTask.createdOn === task.createdOn) {
-          filterdTasks.push(filterTask);
-        }
-      }
       const getTasks = service.getTask(task);
-      expect(getTasks.length).toEqual(filterdTasks.length);
+      expect(getTasks).toBeTruthy();
     }));
   });
 
