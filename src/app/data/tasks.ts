@@ -1,6 +1,6 @@
-import { TaskModel } from '../models/task';
+import { Task } from '../models/task';
 
-export const Tasks: Array<TaskModel> = [
+export const Tasks: Array<Task> = [
     {
         id: 1,
         title: 'meeting',

@@ -1,6 +1,6 @@
 export class Task {
     id: number;
-    title: string;
+    task: string;
     createdOn: string;
     important: boolean;
     dueDate: string;
