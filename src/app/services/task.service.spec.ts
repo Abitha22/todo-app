@@ -13,9 +13,14 @@ describe('TaskService', () => {
     const service: TaskService = TestBed.get(TaskService);
     expect(typeof service.getTask).toBe('function');
   });
+  it('should return the type array of getTasks()', () => {
+    const service: TaskService = TestBed.get(TaskService);
+    const result = service.getTask();
+    expect(Array.isArray(result)).toBe(true);
+  });
   it('should return the Tasks from the sample data', () => {
     const service: TaskService = TestBed.get(TaskService);
     const task = service.getTask();
     expect(task).toBe(Tasks);
   });
-});
+ });
