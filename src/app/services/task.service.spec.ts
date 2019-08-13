@@ -26,6 +26,12 @@ describe('TaskService', () => {
   it('getTask() should accept a filter as argument', () => {
     const service: TaskService = TestBed.get(TaskService);
     const task = service.getTask();
-    expect(service.getTask({createdOn:'', important: true, dueDate: ''})).toBeTruthy();
+    expect(service.getTask({createdOn: '', important: true, dueDate: ''})).toBeTruthy();
+  });
+  it('should get tasks based on filter', () => {
+    const service: TaskService = TestBed.get(TaskService);
+    const task = service.getTask({createdOn: '', important: false, dueDate: ''});
+    const filter = Tasks.filter(tasks => tasks.important === false);
+    expect(task).toEqual(filter);
   });
  });
