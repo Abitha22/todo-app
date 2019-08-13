@@ -34,4 +34,16 @@ describe('TaskService', () => {
     const expectedTasks = Tasks.filter(tasks => tasks.important === false);
     expect(result).toEqual(expectedTasks);
   });
+  it('should be able to get importent tasks', () => {
+    const service: TaskService = TestBed.get(TaskService);
+    const result = service.getTask({createdOn: '', important: true, dueDate: ''});
+    const expectedTasks = Tasks.filter(tasks => tasks.important === true);
+    expect(result).toEqual(expectedTasks);
+  });
+  it('should be able to get importent tasks', () => {
+    const service: TaskService = TestBed.get(TaskService);
+    const result = service.getTask({createdOn: '', important: true, dueDate: '12/08/2019'});
+    const expectedTasks = Tasks.filter(tasks => tasks.dueDate === '12/08/2019');
+    expect(result).toEqual(expectedTasks);
+  });
  });

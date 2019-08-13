@@ -10,6 +10,10 @@ import { Filter } from '../models/filter';
 export class TaskService {
   getTask(filter?: Filter): Array<Task> {
     if (filter) {
+      if (filter.dueDate) {
+        const filtereTasks = Tasks.filter(tasks => tasks.dueDate === filter.dueDate);
+        return filtereTasks;
+      }
       const filteredTasks = Tasks.filter(tasks => tasks.important === filter.important);
       return filteredTasks;
     }
