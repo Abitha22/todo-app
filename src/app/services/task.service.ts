@@ -10,8 +10,8 @@ import { Filter } from '../models/filter';
 export class TaskService {
   getTask(filter?: Filter): Array<Task> {
     if (filter) {
-      const filterTasks = Tasks.filter(tasks => tasks.important === filter.important);
-      return filterTasks;
+      const filteredTasks = Tasks.filter(tasks => tasks.important === filter.important);
+      return filteredTasks;
     }
     return Tasks;
   }
