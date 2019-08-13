@@ -6,8 +6,8 @@ import { Injectable } from '@angular/core';
 })
 export class TaskService {
 
-  getTask() {
-    return [];
+  getTask(): Array<any> {
+   return [];
   }
 
 }
