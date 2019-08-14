@@ -1,8 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { TaskService } from './task.service';
 import { Tasks } from '../data/tasks';
-import { Filter } from '../models/filter';
-import { Task } from '../models/task';
 
 describe('TaskService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
@@ -76,31 +74,31 @@ describe('TaskService', () => {
     expect(result).toEqual(expectedTasks);
   });
   describe('deleteTask', () => {
-  it('should have a method deleteTask()', () => {
-    const service: TaskService = TestBed.get(TaskService);
-    expect(typeof service.deleteTask).toBe('function');
-  });
+    it('should have a method deleteTask()', () => {
+      const service: TaskService = TestBed.get(TaskService);
+      expect(typeof service.deleteTask).toBe('function');
+    });
 
-  it('should return the type array of deleteTasks()', () => {
-    const service: TaskService = TestBed.get(TaskService);
-    const result = service.deleteTask(1);
-    expect(Array.isArray(result)).toBe(true);
-  });
+    it('should return the type array of deleteTasks()', () => {
+      const service: TaskService = TestBed.get(TaskService);
+      const result = service.deleteTask(1);
+      expect(Array.isArray(result)).toBe(true);
+    });
 
-  it('deleteTask() should accept id as argument', () => {
-    const service: TaskService = TestBed.get(TaskService);
-    expect(service.deleteTask(1)).toBeTruthy();
-  });
+    it('deleteTask() should accept id as argument', () => {
+      const service: TaskService = TestBed.get(TaskService);
+      expect(service.deleteTask(1)).toBeTruthy();
+    });
 
-  it('should able to delete tasks based on id', () => {
-    const service: TaskService = TestBed.get(TaskService);
-    const index = Tasks.findIndex(task => task.id === 1);
-    const id = Tasks.splice(index, 1);
-    const expectedTasks = Tasks;
-    const result = service.deleteTask(1);
-    expect(result).toBe(expectedTasks);
+    it('should able to delete tasks based on id', () => {
+      const service: TaskService = TestBed.get(TaskService);
+      const index = Tasks.findIndex(task => task.id === 1);
+      const id = Tasks.splice(index, 1);
+      const expectedTasks = Tasks;
+      const result = service.deleteTask(1);
+      expect(result).toBe(expectedTasks);
+    });
   });
-});
   describe('addTask', () => {
     it('should have a Method addTask()', () => {
       const service: TaskService = TestBed.get(TaskService);
@@ -155,21 +153,23 @@ describe('TaskService', () => {
     });
     it('should return the updated Tasks', () => {
       const service: TaskService = TestBed.get(TaskService);
-      const expectedTasks = service.updateTask({ id: 1, title: 'meeting',
-                                                 createdOn: '12/08/2019', important: true, dueDate: '12/08/2019' });
+      const expectedTasks = service.updateTask({
+        id: 1, title: 'meeting',
+        createdOn: '12/08/2019', important: true, dueDate: '12/08/2019'
+      });
       expect(expectedTasks).toBe(Tasks);
     });
-    // it('should update the task based on the id', () => {
-    //   const service: TaskService = TestBed.get(TaskService);
-    //   service.updateTask({
-    //     id: 2,
-    //     title: 'Ionic with Angular',
-    //     createdOn: '13/09/2019',
-    //     important: true,
-    //     dueDate: '13/09/2019'
-    //   });
-    //   expect(Tasks[1].title).toEqual('Ionic with Angular');
-    // });
+    it('should update the task based on the id', () => {
+      const service: TaskService = TestBed.get(TaskService);
+      service.updateTask({
+        id: 2,
+        title: 'Ionic with Angular',
+        createdOn: '13/09/2019',
+        important: true,
+        dueDate: '13/09/2019'
+      });
+      expect(Tasks[1].title).toEqual('Ionic with Angular');
+    });
   });
 });
 
