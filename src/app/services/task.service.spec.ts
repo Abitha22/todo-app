@@ -73,6 +73,13 @@ describe('TaskService', () => {
     const expectedTasks = Tasks.filter(tasks => tasks.createdOn === '13/09/2019' && tasks.dueDate === '13/09/2019');
     expect(result).toEqual(expectedTasks);
   });
+  it('should be able to get tasks based on important,createdOn and dueDate', () => {
+    const service: TaskService = TestBed.get(TaskService);
+    const result = service.getTask({ createdOn: '13/09/2019', important: true, dueDate: '13/09/2019' });
+    const expectedTasks = Tasks.filter
+    (tasks => tasks.important === true && tasks.createdOn === '13/09/2019' && tasks.dueDate === '13/09/2019');
+    expect(result).toEqual(expectedTasks);
+  });
   describe('deleteTask', () => {
     it('should have a method deleteTask()', () => {
       const service: TaskService = TestBed.get(TaskService);
