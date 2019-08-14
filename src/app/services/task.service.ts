@@ -20,8 +20,17 @@ export class TaskService {
     }
     return Tasks;
   }
-  addTask(task: Task) {
+  addTask(task: Task): Array<Task> {
     task.id = Tasks.length + 1;
     Tasks.push(task);
+    return Tasks;
+  }
+  updateTask(task: Task): Array<Task> {
+    for (const t of Tasks) {
+      if (t.id === task.id) {
+        t.title = task.title;
+      }
+    }
+    return Tasks;
   }
 }

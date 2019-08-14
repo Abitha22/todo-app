@@ -62,15 +62,67 @@ describe('TaskService', () => {
     });
     it('addTask() should accept a Task as argument', () => {
       const service: TaskService = TestBed.get(TaskService);
-      expect(service.addTask({id: 1,
-        title: 'meeting', createdOn: '', important: true, dueDate: '' })).toBeTruthy();
+      expect(service.addTask({
+        id: 1, title: 'meeting',
+        createdOn: '12/08/2019', important: true, dueDate: '12/08/2019'
+      })).toBeTruthy();
+    });
+    it('should return the type array of addTasks()', () => {
+      const service: TaskService = TestBed.get(TaskService);
+      const result = service.addTask({ id: 1, title: 'meeting', createdOn: '12/08/2019', important: true, dueDate: '12/08/2019' });
+      expect(Array.isArray(result)).toBe(true);
+    });
+    it('should return the added Tasks', () => {
+      const service: TaskService = TestBed.get(TaskService);
+      const expectedTasks = service.addTask({ id: 1, title: 'meeting', createdOn: '12/08/2019', important: true, dueDate: '12/08/2019' });
+      expect(expectedTasks).toBe(Tasks);
     });
     it('addTask() should add new task to the Tasks[]', () => {
       const service: TaskService = TestBed.get(TaskService);
       service.addTask({ id: 1, title: 'meeting', createdOn: '12/08/2019', important: true, dueDate: '12/08/2019' });
       const expectedTask = Tasks.pop();
-      expect({ id: Tasks.length + 1, title: 'meeting', createdOn: '12/08/2019',
-               important: true, dueDate: '12/08/2019' }).toEqual(expectedTask);
+      expect({
+        id: Tasks.length + 1, title: 'meeting', createdOn: '12/08/2019',
+        important: true, dueDate: '12/08/2019'
+      }).toEqual(expectedTask);
+    });
+  });
+  describe('updateTask', () => {
+    it('should have a Method updateTask()', () => {
+      const service: TaskService = TestBed.get(TaskService);
+      expect(typeof service.updateTask).toBe('function');
+    });
+    it(' should accept a Task as argument', () => {
+      const service: TaskService = TestBed.get(TaskService);
+      expect(service.updateTask({
+        id: 1,
+        title: 'meeting',
+        createdOn: '12/08/2019',
+        important: true,
+        dueDate: '12/08/2019'
+      })).toBeTruthy();
+    });
+    it('should return the type array of updateTasks()', () => {
+      const service: TaskService = TestBed.get(TaskService);
+      const result = service.updateTask({ id: 1, title: 'meeting', createdOn: '12/08/2019', important: true, dueDate: '12/08/2019' });
+      expect(Array.isArray(result)).toBe(true);
+    });
+    it('should return the updated Tasks', () => {
+      const service: TaskService = TestBed.get(TaskService);
+      const expectedTasks = service.updateTask({ id: 1, title: 'meeting',
+                                                 createdOn: '12/08/2019', important: true, dueDate: '12/08/2019' });
+      expect(expectedTasks).toBe(Tasks);
+    });
+    it('shoud update the task based on the id', () => {
+      const service: TaskService = TestBed.get(TaskService);
+      service.updateTask({
+        id: 2,
+        title: 'Ionic with Angular',
+        createdOn: '13/09/2019',
+        important: true,
+        dueDate: '13/09/2019'
+      });
+      expect(Tasks[1].title).toEqual('Ionic with Angular');
     });
   });
 });
