@@ -41,4 +41,62 @@ describe('TaskService', () => {
     const expectedTasks = Tasks.filter(tasks => tasks.important === false);
     expect(result).toEqual(expectedTasks);
   });
+  it('should be able to get tasks based on duedate', () => {
+    const service: TaskService = TestBed.get(TaskService);
+    const result = service.getTask({createdOn: '', important : undefined , dueDate: '13/09/2019'});
+    const expectedTasks = Tasks.filter(tasks => tasks.dueDate === '13/09/2019');
+    expect(result).toEqual(expectedTasks);
+  });
+  it('should be able to get tasks based on createdOn', () => {
+    const service: TaskService = TestBed.get(TaskService);
+    const result = service.getTask({createdOn: '13/09/2019', important : undefined , dueDate: ''});
+    const expectedTasks = Tasks.filter(tasks => tasks.createdOn === '13/09/2019');
+    expect(result).toEqual(expectedTasks);
+  });
+
+  it('should be able to get tasks based on important and createdOn', () => {
+    const service: TaskService = TestBed.get(TaskService);
+    const result = service.getTask({createdOn: '13/09/2019', important : undefined , dueDate: ''});
+    const expectedTasks = Tasks.filter(tasks => tasks.important && tasks.createdOn === '13/09/2019');
+    expect(result).toEqual(expectedTasks);
+  });
+
+  it('should be able to get tasks based on important and dueDate', () => {
+    const service: TaskService = TestBed.get(TaskService);
+    const result = service.getTask({createdOn: '', important : undefined , dueDate: '13/09/2019'});
+    const expectedTasks = Tasks.filter(tasks => tasks.important && tasks.dueDate === '13/09/2019');
+    expect(result).toEqual(expectedTasks);
+  });
+
+  it('should be able to get tasks based on createdOn and dueDate', () => {
+    const service: TaskService = TestBed.get(TaskService);
+    const result = service.getTask({createdOn: '13/09/2019', important : undefined , dueDate: '13/09/2019'});
+    const expectedTasks = Tasks.filter(tasks => tasks.createdOn === '13/09/2019' && tasks.dueDate === '13/09/2019');
+    expect(result).toEqual(expectedTasks);
+  });
+
+  it('should have a method deleteTask()', () => {
+    const service: TaskService = TestBed.get(TaskService);
+    expect(typeof service.deleteTask).toBe('function');
+  });
+
+  it('should return the type array of deleteTasks()', () => {
+    const service: TaskService = TestBed.get(TaskService);
+    const result = service.deleteTask(1);
+    expect(Array.isArray(result)).toBe(true);
+  });
+
+  it('deleteTask() should accept id as argument', () => {
+    const service: TaskService = TestBed.get(TaskService);
+    expect(service.deleteTask(1)).toBeTruthy();
+  });
+
+  it('should able to delete tasks based on id', () => {
+    const service: TaskService = TestBed.get(TaskService);
+    const index = Tasks.findIndex(task => task.id === 1);
+    const id = Tasks.splice(index, 1);
+    const expectedTasks = Tasks;
+    const result  = service.deleteTask(1);
+    expect(result).toBe(expectedTasks);
+ });
  });
