@@ -20,4 +20,8 @@ export class TaskService {
     }
     return Tasks;
   }
+  addTask(task: Task) {
+    task.id = Tasks.length + 1;
+    Tasks.push(task);
+  }
 }
