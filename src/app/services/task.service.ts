@@ -11,16 +11,6 @@ export class TaskService {
 
   getTask(filter?: Filter): Array<Task> {
     if (filter) {
-    //   if (filter.important === true) {
-    //     const filteredTasks = Tasks.filter(tasks => tasks.important === filter.important);
-    //     return filteredTasks;
-    //   } else if (filter.important === false) {
-    //     const filteredTasks = Tasks.filter(tasks => tasks.important === false);
-    //     return filteredTasks;
-    //   }   else if (filter.dueDate) {
-    //     const filteredTasks = Tasks.filter(tasks => tasks.dueDate === filter.dueDate);
-    //     return filteredTasks;
-    // }
       let filteredTasks = [];
       if (filter.important !== undefined) {
         filteredTasks  = Tasks.filter(tasks => tasks.important === filter.important);
@@ -44,5 +34,9 @@ export class TaskService {
     const index = Tasks.findIndex(task => task.id === id);
     Tasks.splice(index, 1);
     return Tasks;
+  }
+  addTask(task: Task) {
+    task.id = Tasks.length + 1;
+    Tasks.push(task);
   }
 }
