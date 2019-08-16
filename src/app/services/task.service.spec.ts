@@ -1,6 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { TaskService } from './task.service';
 import { Tasks } from '../data/tasks';
+import { Task } from '../models/task';
 
 describe('TaskService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
@@ -39,6 +40,7 @@ describe('TaskService', () => {
     const result = service.getTask({ createdOn: '', important: false, dueDate: '' });
     const expectedTasks = Tasks.filter(tasks => tasks.important === false);
     expect(result).toEqual(expectedTasks);
+    console.log(result);
   });
   it('should be able to get tasks based on duedate', () => {
     const service: TaskService = TestBed.get(TaskService);
