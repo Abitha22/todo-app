@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import {TaskService} from '../services/task.service';
 @Component({
   selector: 'app-tasks',
   templateUrl: './tasks.page.html',
   styleUrls: ['./tasks.page.scss'],
 })
-export class TasksPage implements OnInit {
+export class TasksPage  {
   tasks;
   constructor(private taskservice: TaskService) {
     this.tasks = this.taskservice.getTask();
@@ -25,8 +25,4 @@ export class TasksPage implements OnInit {
   this.tasks = this.taskservice.addTask(task);
   console.log(this.tasks);
   }
-
-  ngOnInit() {
-  }
-
 }
