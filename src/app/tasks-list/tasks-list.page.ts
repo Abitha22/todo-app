@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
-import {TaskService} from '../services/task.service';
+import { TaskService } from '../services/task.service';
+
 @Component({
-  selector: 'app-tasks',
-  templateUrl: './tasks.page.html',
-  styleUrls: ['./tasks.page.scss'],
+  selector: 'app-tasks-list',
+  templateUrl: './tasks-list.page.html',
+  styleUrls: ['./tasks-list.page.scss'],
 })
-export class TasksPage  {
+export class TasksListPage {
+
   tasks;
   constructor(private taskservice: TaskService) {
     this.tasks = this.taskservice.getTask();

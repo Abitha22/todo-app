@@ -1,23 +1,24 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed , inject} from '@angular/core/testing';
-import { TasksPage } from './tasks.page';
+
+import { TasksListPage } from './tasks-list.page';
 import { Tasks } from '../data/tasks';
 import { TaskService } from '../services/task.service';
 
-describe('TasksPage', () => {
-  let component: TasksPage;
-  let fixture: ComponentFixture<TasksPage>;
+describe('TasksListPage', () => {
+  let component: TasksListPage;
+  let fixture: ComponentFixture<TasksListPage>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TasksPage ],
+      declarations: [ TasksListPage ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TasksPage);
+    fixture = TestBed.createComponent(TasksListPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -25,7 +26,6 @@ describe('TasksPage', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-
   it('should have title as Tasks', () => {
     component.tasks = Tasks;
     fixture.detectChanges();
