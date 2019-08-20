@@ -23,10 +23,12 @@
     </ion-item>
 
     <ion-item>
-      <label> DueDate :</label>
-      {{taskDetails.dueDate}}
+      <label> DueDate   :</label>
+     <button id="button" (click)="updateDate()"> {{taskDetails.dueDate}}</button>
     </ion-item>
 
   </ion-list>
+
+<app-calendar *ngIf=show (outDate)="updateDate($event)"></app-calendar>
 
 </ion-content>

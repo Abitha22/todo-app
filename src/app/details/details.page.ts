@@ -9,21 +9,42 @@ import { Task } from '../models/task';
   styleUrls: ['./details.page.scss'],
 })
 export class DetailsPage implements OnInit {
-  getTaskId: string;
-  taskDetails: Task;
-  constructor(private router: ActivatedRoute, private taskService: TaskService) {
+  getTaskId;
+  taskDetails;
+  show ;
+  Tasks = this.taskservice.getTask();
+  constructor(private router: ActivatedRoute, private taskservice: TaskService) {
     this.getTaskId = this.router.snapshot.paramMap.get('id');
     this.getTaskDetails(this.getTaskId);
   }
   getTaskDetails(id) {
-    const tasks = this.taskService.getTask();
+    const tasks = this.taskservice.getTask();
     const idvalue = parseInt(id, 10);
     const index = tasks.findIndex(task => task.id === idvalue);
     this.taskDetails = tasks[index];
   }
+  date(date) {
+    console.log(date);
+    }
   updateTask(task) {
-    const updateTask = this.taskService.updateTask(task);
+    if (this.date === undefined) {
+      this.taskDetails.dueDate = this.taskDetails.dueDate;
+    } else {
+      this.taskDetails.dueDate = this.date;
+    }
+    const updateTask = this.taskservice.updateTask(task);
+    console.log(updateTask);
   }
+  updateDate(date) {
+    console.log('update date' + date);
+    this.show = true;
+    if (date === undefined) {
+      this.taskDetails.dueDate = this.taskDetails.dueDate;
+    } else {
+      this.taskDetails.dueDate = date;
+    }
+  }
+
   ngOnInit() {
     this.getTaskId = this.router.snapshot.paramMap.get('id');
   }
