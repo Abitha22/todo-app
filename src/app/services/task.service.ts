@@ -10,6 +10,8 @@ import { Filter } from '../models/filter';
 export class TaskService {
 
   Tasks: Task[];
+   date = new Date();
+   today = this.date.getDate() + '/' + (this.date.getMonth() + 1) + '/' + this.date.getFullYear();
   constructor() {
     this.Tasks = sampleTasks.map(task => task);
   }
@@ -48,6 +50,8 @@ export class TaskService {
         id: b.id
       };
     }, { id: 0 }).id + 1;
+    task.createdOn = this.today.toString();
+    task.dueDate = this.today.toString();
     this.Tasks.push(task);
     console.log(task);
     return this.Tasks;
