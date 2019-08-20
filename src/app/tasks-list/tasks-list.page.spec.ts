@@ -1,17 +1,26 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed , inject} from '@angular/core/testing';
-
 import { TasksListPage } from './tasks-list.page';
 import { Tasks } from '../data/tasks';
 import { TaskService } from '../services/task.service';
-
+import { ActivatedRoute } from '../../../node_modules/@angular/router';
+import { RouterTestingModule } from '../../../node_modules/@angular/router/testing';
 describe('TasksListPage', () => {
   let component: TasksListPage;
   let fixture: ComponentFixture<TasksListPage>;
+  const fakeActivatedRoute = {
+    snapshot: { paramMap : { get(): string {
+      return 'id';
+    }} }
+  } ;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ TasksListPage ],
+      imports: [RouterTestingModule],
+      providers: [
+        {provide: ActivatedRoute, useValue: fakeActivatedRoute}
+      ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
     .compileComponents();
@@ -26,6 +35,7 @@ describe('TasksListPage', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
   it('should have title as Tasks', () => {
     component.tasks = Tasks;
     fixture.detectChanges();
@@ -47,39 +57,4 @@ describe('TasksListPage', () => {
     const content = element.querySelector('ion-content');
     expect(content.textContent).toBeTruthy();
   }));
-  it('should have a icon `create` to view the details or to update the task value', () => {
-    component.tasks = Tasks;
-    fixture.detectChanges();
-    const element: HTMLDivElement = fixture.nativeElement;
-    const content = element.querySelector('ion-content > ion-menu-toggle > ion-item > ion-icon');
-    expect(content.getAttribute('name')).toBe('create');
-  });
-  it('should have a icon `create` which takes slot value as `end`  ', () => {
-    component.tasks = Tasks;
-    fixture.detectChanges();
-    const element: HTMLDivElement = fixture.nativeElement;
-    const content = element.querySelector('ion-content > ion-menu-toggle > ion-item > ion-icon');
-    expect(content.getAttribute('slot')).toBe('end');
-  });
-  it('should have a icon `create` which takes data-placement value as `left`  ', () => {
-    component.tasks = Tasks;
-    fixture.detectChanges();
-    const element: HTMLDivElement = fixture.nativeElement;
-    const content = element.querySelector('ion-content > ion-menu-toggle > ion-item > ion-icon');
-    expect(content.getAttribute('data-placement')).toBe('left');
-  });
-  it('should have a icon `create` which takes data-toggle value as `tooltip`  ', () => {
-    component.tasks = Tasks;
-    fixture.detectChanges();
-    const element: HTMLDivElement = fixture.nativeElement;
-    const content = element.querySelector('ion-content > ion-menu-toggle > ion-item > ion-icon');
-    expect(content.getAttribute('data-toggle')).toBe('tooltip');
-  });
-  it('should have a icon `create` which takes title value as `view details`  ', () => {
-    component.tasks = Tasks;
-    fixture.detectChanges();
-    const element: HTMLDivElement = fixture.nativeElement;
-    const content = element.querySelector('ion-content > ion-menu-toggle > ion-item > ion-icon');
-    expect(content.getAttribute('title')).toBe('view details');
-  });
 });

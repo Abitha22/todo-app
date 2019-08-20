@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { TaskService } from '../services/task.service';
+import { Router } from '../../../node_modules/@angular/router';
 
 @Component({
   selector: 'app-tasks-list',
@@ -9,22 +10,25 @@ import { TaskService } from '../services/task.service';
 export class TasksListPage {
 
   tasks;
-  constructor(private taskservice: TaskService) {
+  constructor(private taskservice: TaskService, public router: Router) {
     this.tasks = this.taskservice.getTask();
-    console.log(this.tasks);
   }
-
+  unImportant(task) {
+    task.important = !task.important;
+    this.taskservice.updateTask(task);
+  }
+  important(task) {
+    task.important = !task.important;
+    this.taskservice.updateTask(task);
+  }
   updateTask(task) {
-  const updateTask = this.taskservice.updateTask(task);
-  console.log(updateTask);
+    const updateTask = this.taskservice.updateTask(task);
+    this.router.navigate(['tasks-list/details', task.id]);
   }
-
   deleteTask(id) {
     this.tasks = this.taskservice.deleteTask(id);
-    console.log(this.tasks);
   }
   addTask(task) {
-  this.tasks = this.taskservice.addTask(task);
-  console.log(this.tasks);
+    this.tasks = this.taskservice.addTask(task);
   }
 }
