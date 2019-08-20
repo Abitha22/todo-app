@@ -1,13 +1,12 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed, inject, fakeAsync } from '@angular/core/testing';
-
+import { async, ComponentFixture, TestBed , inject, fakeAsync} from '@angular/core/testing';
 import { TasksListPage } from './tasks-list.page';
 import { Tasks } from '../data/tasks';
 import { TaskService } from '../services/task.service';
+import { ActivatedRoute } from '../../../node_modules/@angular/router';
+import { RouterTestingModule } from '../../../node_modules/@angular/router/testing';
 import { Task } from '../models/task';
-import { of } from 'rxjs';
 import { By } from '@angular/platform-browser';
-
 const dummyTasks: Array<Task> = [
   {
     id: 1,
@@ -28,19 +27,27 @@ class MockTaskService {
     return dummyTasks;
   }
 }
+const fakeActivatedRoute = {
+  snapshot: { paramMap : { get(): string {
+    return 'id';
+  }} }
+} ;
 describe('TasksListPage', () => {
   let component: TasksListPage;
   let fixture: ComponentFixture<TasksListPage>;
   let service: TaskService;
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [TasksListPage],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA],
+      declarations: [ TasksListPage ],
+      imports: [RouterTestingModule],
       providers: [TaskService,
+        {provide: ActivatedRoute, useValue: fakeActivatedRoute},
         {
           provide: TaskService, useClass: MockTaskService
 
-        }]
+        }
+      ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
       .compileComponents();
     service = TestBed.get(TaskService);
@@ -55,6 +62,7 @@ describe('TasksListPage', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
   it('should have title as Tasks', () => {
     component.tasks = Tasks;
     fixture.detectChanges();
@@ -80,35 +88,35 @@ describe('TasksListPage', () => {
     component.tasks = Tasks;
     fixture.detectChanges();
     const element: HTMLDivElement = fixture.nativeElement;
-    const content = element.querySelector('ion-content > ion-menu-toggle > ion-item > ion-icon');
+    const content = element.querySelector('.update');
     expect(content.getAttribute('name')).toBe('create');
   });
   it('should have a icon `create` which takes slot value as `end`  ', () => {
     component.tasks = Tasks;
     fixture.detectChanges();
     const element: HTMLDivElement = fixture.nativeElement;
-    const content = element.querySelector('ion-content > ion-menu-toggle > ion-item > ion-icon');
+    const content = element.querySelector('.update');
     expect(content.getAttribute('slot')).toBe('end');
   });
   it('should have a icon `create` which takes data-placement value as `left`  ', () => {
     component.tasks = Tasks;
     fixture.detectChanges();
     const element: HTMLDivElement = fixture.nativeElement;
-    const content = element.querySelector('ion-content > ion-menu-toggle > ion-item > ion-icon');
+    const content = element.querySelector('.update');
     expect(content.getAttribute('data-placement')).toBe('left');
   });
   it('should have a icon `create` which takes data-toggle value as `tooltip`  ', () => {
     component.tasks = Tasks;
     fixture.detectChanges();
     const element: HTMLDivElement = fixture.nativeElement;
-    const content = element.querySelector('ion-content > ion-menu-toggle > ion-item > ion-icon');
+    const content = element.querySelector('.update');
     expect(content.getAttribute('data-toggle')).toBe('tooltip');
   });
   it('should have a icon `create` which takes title value as `view details`  ', () => {
     component.tasks = Tasks;
     fixture.detectChanges();
     const element: HTMLDivElement = fixture.nativeElement;
-    const content = element.querySelector('ion-content > ion-menu-toggle > ion-item > ion-icon');
+    const content = element.querySelector('.update');
     expect(content.getAttribute('title')).toBe('view details');
   });
   it('Should call the TasksService Internally', () => {
@@ -120,7 +128,7 @@ describe('TasksListPage', () => {
     component.tasks = Tasks;
     fixture.detectChanges();
     const element: HTMLDivElement = fixture.nativeElement;
-    const content = element.querySelector('ion-content > ion-menu-toggle > ion-item > ion-icon');
+    const content = element.querySelector('.update');
     expect(content.getAttribute('title')).toBe('view details');
   });
   it('should have a icon `trash` to delete task ', () => {
@@ -160,7 +168,7 @@ describe('TasksListPage', () => {
   });
   it('should call updateTask() when event is happend', fakeAsync(() => {
     spyOn(component, 'updateTask');
-    const btn = fixture.debugElement.query(By.css('ion-icon'));
+    const btn = fixture.debugElement.query(By.css('.update'));
     btn.triggerEventHandler('click', null);
     fixture.detectChanges();
     expect(component.updateTask).toHaveBeenCalled();
