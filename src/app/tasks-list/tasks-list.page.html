@@ -8,7 +8,7 @@
   <ion-menu-toggle auto-hide="false" *ngFor="let task of tasks;let i=index">
     <ion-item>
       <ion-icon slot="end" name="create" (click)="updateTask(task)" data-placement="left" data-toggle="tooltip" title="view details"></ion-icon>
-    <ion-icon slot="end" name="trash" (click)="deleteTask(task.id)" data-placement="left" data-toggle="tooltip" title="delete task"></ion-icon>
+    <ion-icon slot="end" class="delete" name="trash" (click)="deleteTask(task.id)" data-placement="left" data-toggle="tooltip" title="delete task"></ion-icon>
     <ion-label>
       {{task.title}}
     </ion-label>
