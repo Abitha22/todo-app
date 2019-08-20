@@ -11,8 +11,8 @@
         title="Mark as unimportant"></ion-icon>
       <ion-icon slot="end" name="star-outline" *ngIf=!task.important (click)="important(task)" data-placement="left" data-toggle="tooltip"
         title="mark as important"></ion-icon>
-      <ion-icon slot="end" name="create" (click)="updateTask(task)" data-placement="left" data-toggle="tooltip" title="view details"></ion-icon>
-      <ion-icon slot="end" name="trash" (click)="deleteTask(task.id)" data-placement="left" data-toggle="tooltip" title="delete task"></ion-icon>
+      <ion-icon slot="end" name="create" class="update" (click)="updateTask(task)" data-placement="left" data-toggle="tooltip" title="view details"></ion-icon>
+      <ion-icon slot="end" name="trash" class="delete" (click)="deleteTask(task.id)" data-placement="left" data-toggle="tooltip" title="delete task"></ion-icon>
       <ion-label>
         {{task.title}}
       </ion-label>
