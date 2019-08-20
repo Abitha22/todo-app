@@ -10,6 +10,7 @@ import { TaskService } from '../services/task.service';
 export class DetailsPage implements OnInit {
   getTaskId;
   taskDetails;
+  show ;
   Tasks = this.taskservice.getTask();
   constructor(private router: ActivatedRoute, private taskservice: TaskService) {
     this.getTaskId = this.router.snapshot.paramMap.get('id');
@@ -22,9 +23,28 @@ export class DetailsPage implements OnInit {
     const index = Tasks.findIndex(task => task.id === idvalue);
     this.taskDetails = Tasks[index];
   }
+  date(date) {
+    console.log(date);
+    }
   updateTask(task) {
+    if (this.date === undefined) {
+      this.taskDetails.dueDate = this.taskDetails.dueDate;
+    } else {
+      this.taskDetails.dueDate = this.date;
+    }
     const updateTask = this.taskservice.updateTask(task);
+    console.log(updateTask);
   }
+  updateDate(date) {
+    console.log('update date' + date);
+    this.show = true;
+    if (date === undefined) {
+      this.taskDetails.dueDate = this.taskDetails.dueDate;
+    } else {
+      this.taskDetails.dueDate = date;
+    }
+  }
+
   ngOnInit() {
     this.getTaskId = this.router.snapshot.paramMap.get('id');
   }
