@@ -137,14 +137,14 @@ describe('TaskService', () => {
     });
     it('addTask() should add new task to the Tasks[]', () => {
       const service: TaskService = new TaskService();
-      service.addTask({ id: 1, title: 'meeting', createdOn: '12/08/2019', important: true, dueDate: '12/08/2019' });
+      service.addTask({ id: 1, title: 'meeting', createdOn: service.today.toString(), important: true, dueDate: service.today.toString() });
       const expectedTask = service.getTask().pop();
       const maxId = service.getTask().map(task => task.id).sort((a, b) => {
         return a > b ? b : a;
       }).pop();
       expect({
-        id: maxId, title: 'meeting', createdOn: '12/08/2019',
-        important: true, dueDate: '12/08/2019'
+        id: maxId, title: 'meeting', createdOn : service.today.toString(),
+        important: true, dueDate: service.today.toString()
       }).toEqual(expectedTask);
     });
   });
