@@ -23,7 +23,7 @@ export class TasksListPage {
     this.taskservice.updateTask(task);
   }
   updateTask(task) {
-    const updateTask = this.taskservice.updateTask(task);
+    this.taskservice.updateTask(task);
     this.router.navigate(['tasks-list/details', task.id]);
   }
   deleteTask(id) {
