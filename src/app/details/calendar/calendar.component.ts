@@ -1,19 +1,16 @@
-import { Component, OnInit , Output, EventEmitter} from '@angular/core';
+import { Component, Output, EventEmitter} from '@angular/core';
 
 @Component({
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.scss'],
 })
-export class CalendarComponent implements OnInit {
+export class CalendarComponent {
   format;
   @Output()
-  outDate = new EventEmitter<any>();
-  constructor() { }
+  outDate = new EventEmitter();
   date(date) {
    console.log(date);
    this.outDate.emit(date);
    }
-  ngOnInit() {}
-
 }

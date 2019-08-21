@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '../../../node_modules/@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { TaskService } from '../services/task.service';
 import { Task } from '../models/task';
 
@@ -15,14 +15,9 @@ export class DetailsPage implements OnInit {
   Tasks = this.taskservice.getTask();
   constructor(private router: ActivatedRoute, private taskservice: TaskService) {
     this.getTaskId = this.router.snapshot.paramMap.get('id');
-    this.getTaskDetails(this.getTaskId);
+    this.taskDetails = this.taskservice.getTaskDetails(this.getTaskId);
   }
-  getTaskDetails(id) {
-    const tasks = this.taskservice.getTask();
-    const idvalue = parseInt(id, 10);
-    const index = tasks.findIndex(task => task.id === idvalue);
-    this.taskDetails = tasks[index];
-  }
+
   date(date) {
     console.log(date);
     }
@@ -42,7 +37,9 @@ export class DetailsPage implements OnInit {
       this.taskDetails.dueDate = this.taskDetails.dueDate;
     } else {
       this.taskDetails.dueDate = date;
+      this.show = false;
     }
+
   }
 
   ngOnInit() {

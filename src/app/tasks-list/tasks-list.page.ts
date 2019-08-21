@@ -29,8 +29,9 @@ export class TasksListPage {
   deleteTask(id) {
     this.tasks = this.taskservice.deleteTask(id);
   }
-  addTask(task: Task) {
-    this.tasks = this.taskservice.addTask(task);
-    console.log(this.tasks);
+  addTask(title: string) {
+   const task: Task = this.taskservice.task(title);
+   this.tasks = this.taskservice.addTask(task);
+   console.log(this.tasks);
   }
 }

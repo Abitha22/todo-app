@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Tasks as sampleTasks } from '../data/tasks';
 import { Task } from '../models/task';
 import { Filter } from '../models/filter';
-
+import * as moment from 'moment';
 
 @Injectable({
   providedIn: 'root'
@@ -10,17 +10,19 @@ import { Filter } from '../models/filter';
 export class TaskService {
 
   Tasks: Task[];
-   date = new Date();
-   today = this.date.getDate() + '/' + (this.date.getMonth() + 1) + '/' + this.date.getFullYear();
   constructor() {
     this.Tasks = sampleTasks.map(task => task);
+  }
+  getTaskDetails(id: string) {
+    const idvalue = parseInt(id , 10);
+    const index = this.Tasks.findIndex(task => task.id === idvalue);
+    return this.Tasks[index];
   }
 
   getTask(filter?: Filter): Array<Task> {
 
     const filters = Object.keys(filter || {});
     return this.Tasks.filter(task => {
-      console.log(filter);
       return filters.every(filterKey =>
         (filter[filterKey] === undefined || filter[filterKey] === '') ? true : task[filterKey] === filter[filterKey]);
     });
@@ -40,21 +42,29 @@ export class TaskService {
 
   }
   addTask(task: Task): Array<Task> {
-    task.id = this.Tasks.reduce((a, b) => {
-      if (a.id > b.id) {
-        return {
-          id: a.id
-        };
-      }
-      return {
-        id: b.id
-      };
-    }, { id: 0 }).id + 1;
-    task.createdOn = this.today.toString();
-    task.dueDate = this.today.toString();
     this.Tasks.push(task);
     console.log(task);
     return this.Tasks;
+  }
+
+  task(title: string) {
+     const task: Task = {
+      id : this.Tasks.reduce((a, b) => {
+        if (a.id > b.id) {
+          return {
+            id: a.id
+          };
+        }
+        return {
+          id: b.id
+        };
+      }, { id: 0 }).id + 1,
+      title,
+      important : false,
+      createdOn : moment().format('DD/MM/YYYY'),
+      dueDate :  moment().format('DD/MM/YYYY')
+     };
+     return task;
   }
   updateTask(task: Task): Task {
     for (let i = 0; i < this.Tasks.length; i++) {

@@ -67,7 +67,7 @@ describe('TasksListPage', () => {
     component.tasks = Tasks;
     fixture.detectChanges();
     const element: HTMLDivElement = fixture.nativeElement;
-    const content = element.querySelector('ion-header>ion-toolbar>ion-title');
+    const content = element.querySelector('ion-title');
     expect(content.textContent).toEqual('Tasks');
   });
   it('should take auto-hide value as false', () => {
