@@ -1,12 +1,14 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed , inject, fakeAsync} from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, inject, fakeAsync } from '@angular/core/testing';
 import { TasksListPage } from './tasks-list.page';
 import { Tasks } from '../data/tasks';
 import { TaskService } from '../services/task.service';
-import { ActivatedRoute } from '../../../node_modules/@angular/router';
+import { ActivatedRoute, Router, Routes } from '../../../node_modules/@angular/router';
 import { RouterTestingModule } from '../../../node_modules/@angular/router/testing';
 import { Task } from '../models/task';
 import { By } from '@angular/platform-browser';
+import { DetailsPageModule } from '../details/details.module';
+import { Location } from '@angular/common';
 const dummyTasks: Array<Task> = [
   {
     id: 1,
@@ -26,22 +28,40 @@ class MockTaskService {
   getTask() {
     return dummyTasks;
   }
+  deleteTask(id) {
+    const index = dummyTasks.findIndex(task => task.id === id);
+    console.log(`got id ${id} index ${index}`);
+    if (index < 0) {
+      throw Error('id not found');
+    }
+    dummyTasks.splice(index, 1);
+    return dummyTasks;
+  }
 }
 const fakeActivatedRoute = {
-  snapshot: { paramMap : { get(): string {
-    return 'id';
-  }} }
-} ;
+  snapshot: {
+    paramMap: {
+      get(): string {
+        return '1';
+      }
+    }
+  }
+};
+const routes: Routes = [
+  { path: 'tasks-list/details/1', component: DetailsPageModule },
+];
 describe('TasksListPage', () => {
   let component: TasksListPage;
   let fixture: ComponentFixture<TasksListPage>;
   let service: TaskService;
+  let router: Router;
+  let location: Location;
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TasksListPage ],
-      imports: [RouterTestingModule],
+      declarations: [TasksListPage],
+      imports: [RouterTestingModule.withRoutes(routes)],
       providers: [TaskService,
-        {provide: ActivatedRoute, useValue: fakeActivatedRoute},
+        { provide: ActivatedRoute, useValue: fakeActivatedRoute },
         {
           provide: TaskService, useClass: MockTaskService
 
@@ -51,11 +71,14 @@ describe('TasksListPage', () => {
     })
       .compileComponents();
     service = TestBed.get(TaskService);
+    location = TestBed.get(Location);
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(TasksListPage);
     component = fixture.componentInstance;
+    router = TestBed.get(Router);
+    location = TestBed.get(Location);
     fixture.detectChanges();
   });
 
@@ -84,41 +107,7 @@ describe('TasksListPage', () => {
     const content = element.querySelector('ion-content');
     expect(content.textContent).toBeTruthy();
   }));
-  it('should have a icon `create` to view the details or to update the task value', () => {
-    component.tasks = Tasks;
-    fixture.detectChanges();
-    const element: HTMLDivElement = fixture.nativeElement;
-    const content = element.querySelector('.update');
-    expect(content.getAttribute('name')).toBe('create');
-  });
-  it('should have a icon `create` which takes slot value as `end`  ', () => {
-    component.tasks = Tasks;
-    fixture.detectChanges();
-    const element: HTMLDivElement = fixture.nativeElement;
-    const content = element.querySelector('.update');
-    expect(content.getAttribute('slot')).toBe('end');
-  });
-  it('should have a icon `create` which takes data-placement value as `left`  ', () => {
-    component.tasks = Tasks;
-    fixture.detectChanges();
-    const element: HTMLDivElement = fixture.nativeElement;
-    const content = element.querySelector('.update');
-    expect(content.getAttribute('data-placement')).toBe('left');
-  });
-  it('should have a icon `create` which takes data-toggle value as `tooltip`  ', () => {
-    component.tasks = Tasks;
-    fixture.detectChanges();
-    const element: HTMLDivElement = fixture.nativeElement;
-    const content = element.querySelector('.update');
-    expect(content.getAttribute('data-toggle')).toBe('tooltip');
-  });
-  it('should have a icon `create` which takes title value as `view details`  ', () => {
-    component.tasks = Tasks;
-    fixture.detectChanges();
-    const element: HTMLDivElement = fixture.nativeElement;
-    const content = element.querySelector('.update');
-    expect(content.getAttribute('title')).toBe('view details');
-  });
+
   it('Should call the TasksService Internally', () => {
     const getTasks = spyOn(TestBed.get(TaskService), 'getTask');
     service.getTask();
@@ -131,40 +120,44 @@ describe('TasksListPage', () => {
     const content = element.querySelector('.update');
     expect(content.getAttribute('title')).toBe('view details');
   });
-  it('should have a icon `trash` to delete task ', () => {
-    component.tasks = Tasks;
-    fixture.detectChanges();
-    const element: HTMLDivElement = fixture.nativeElement;
-    const content = element.querySelector('.delete');
-    expect(content.getAttribute('name')).toBe('trash');
+
+  describe('UpdateTask', () => {
+    it('should navigate to the detals page when edit button is clicked', fakeAsync(() => {
+      spyOn(component, 'taskDetails');
+      const btn = fixture.debugElement.query(By.css('.update'));
+      btn.triggerEventHandler('click', null);
+      fixture.detectChanges();
+      expect(component.taskDetails).toHaveBeenCalled();
+    }));
+    it('should navigate to the detals page when edit button is clicked', fakeAsync(() => {
+      spyOn(component, 'taskDetails');
+      component.tasks = service.getTask();
+      const btn = fixture.debugElement.query(By.css('.update'));
+      btn.triggerEventHandler('click', null);
+      const getTaskId = fakeActivatedRoute.snapshot.paramMap.get();
+      fixture.detectChanges();
+      router.navigate(['tasks-list/details/' + getTaskId]).then(() => {
+        expect(location.path()).toBe('/tasks-list/details/' + getTaskId);
+      });
+    }));
   });
-  it('should have a icon `trash` which takes slot value as `end`  ', () => {
-    component.tasks = Tasks;
-    fixture.detectChanges();
-    const element: HTMLDivElement = fixture.nativeElement;
-    const content = element.querySelector('.delete');
-    expect(content.getAttribute('slot')).toBe('end');
-  });
-  it('should have a icon `trash` which takes data-placement value as `left`  ', () => {
-    component.tasks = Tasks;
-    fixture.detectChanges();
-    const element: HTMLDivElement = fixture.nativeElement;
-    const content = element.querySelector('.delete');
-    expect(content.getAttribute('data-placement')).toBe('left');
-  });
-  it('should have a icon `trash` which takes data-toggle value as `tooltip`  ', () => {
-    component.tasks = Tasks;
-    fixture.detectChanges();
-    const element: HTMLDivElement = fixture.nativeElement;
-    const content = element.querySelector('.delete');
-    expect(content.getAttribute('data-toggle')).toBe('tooltip');
-  });
-  it('should have a icon `trash` which takes title value as `delete task`  ', () => {
-    component.tasks = Tasks;
-    fixture.detectChanges();
-    const element: HTMLDivElement = fixture.nativeElement;
-    const content = element.querySelector('.delete');
-    expect(content.getAttribute('title')).toBe('delete task');
+  describe('DeleteTask', () => {
+    it('should call deleteTask() when delete icon is clicked', fakeAsync(() => {
+      spyOn(component, 'deleteTask');
+      const icon = fixture.debugElement.query(By.css('.delete'));
+      icon.triggerEventHandler('click', null);
+      fixture.detectChanges();
+      expect(component.deleteTask).toHaveBeenCalled();
+    }));
+    // it('should delete task based on id', fakeAsync(() => {
+    //   spyOn(component, 'deleteTask');
+    //   const icon = fixture.debugElement.query(By.css('.delete'));
+    //   icon.triggerEventHandler('click', null);
+    //   fixture.detectChanges();
+    //   const index = dummyTasks.findIndex(task => task.id === 1);
+    //   const result = service.deleteTask(index);
+    //   expect(result).toEqual(service.getTask());
+    // }));
   });
   it('should call taskDetails() when event is happened', fakeAsync(() => {
     spyOn(component, 'taskDetails');
