@@ -200,8 +200,19 @@ describe('TaskService', () => {
         dueDate: '13/09/2019'
       });
     });
+    describe('getTaskDetails', () => {
+      it('should have method getTaskDetails' , () => {
+        const service: TaskService = new TaskService();
+        expect(typeof service.getTaskDetails).toBe('function');
+        });
+      it('should convert string into number' , () => {
+          const service: TaskService = new TaskService();
+          const result = service.getTaskDetails('1');
+          expect(result).toBe(Tasks[0]);
+        });
+      });
+    });
   });
-});
 
 
 

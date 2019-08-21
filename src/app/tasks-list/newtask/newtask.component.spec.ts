@@ -25,7 +25,7 @@ describe('NewtaskComponent', () => {
     expect(component).toBeTruthy();
   });
   it('should have the method enterTask()', () => {
-    expect(typeof component.enterTask).toBe('function');
+    expect(typeof component.enterTaskTitle).toBe('function');
   });
   it('should have a button to add newTask', () => {
     fixture.detectChanges();
@@ -42,17 +42,17 @@ describe('NewtaskComponent', () => {
   describe('Output', () => {
     it('should call enterTask on click the button', () => {
       const button = fixture.nativeElement.querySelector('ion-button');
-      spyOn(component, 'enterTask');
+      spyOn(component, 'enterTaskTitle');
       button.dispatchEvent(new Event('click'));
       fixture.detectChanges();
-      expect(component.enterTask).toHaveBeenCalled();
+      expect(component.enterTaskTitle).toHaveBeenCalled();
     });
     it('should emit the event while we call the enterTask()', fakeAsync(() => {
       const button = fixture.nativeElement.querySelector('ion-button');
-      spyOn(component.outEnterTask, 'emit');
+      spyOn(component.outTaskTitle, 'emit');
       button.dispatchEvent(new Event('click'));
       fixture.detectChanges();
-      expect(component.outEnterTask.emit).toHaveBeenCalled();
+      expect(component.outTaskTitle.emit).toHaveBeenCalled();
     }));
   });
 });
