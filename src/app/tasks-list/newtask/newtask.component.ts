@@ -9,7 +9,9 @@ export class NewtaskComponent {
   @Output()
   outTaskTitle = new EventEmitter<Task>();
   enterTaskTitle(title) {
-    this.outTaskTitle.emit(title.value);
-    title.value = '';
+    if (title.value !== '') {
+      this.outTaskTitle.emit(title.value);
+      title.value = '';
+    }
   }
 }
