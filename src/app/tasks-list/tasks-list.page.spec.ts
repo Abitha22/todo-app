@@ -166,12 +166,12 @@ describe('TasksListPage', () => {
     const content = element.querySelector('.delete');
     expect(content.getAttribute('title')).toBe('delete task');
   });
-  it('should call updateTask() when event is happened', fakeAsync(() => {
-    spyOn(component, 'updateTask');
+  it('should call taskDetails() when event is happened', fakeAsync(() => {
+    spyOn(component, 'taskDetails');
     const btn = fixture.debugElement.query(By.css('.update'));
     btn.triggerEventHandler('click', null);
     fixture.detectChanges();
-    expect(component.updateTask).toHaveBeenCalled();
+    expect(component.taskDetails).toHaveBeenCalled();
   }));
   it('should call deleteTask() when event is happened', fakeAsync(() => {
     spyOn(component, 'deleteTask');
