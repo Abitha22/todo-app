@@ -1,6 +1,8 @@
 import { TestBed } from '@angular/core/testing';
 import { TaskService } from './task.service';
 import { Tasks } from '../data/tasks';
+import * as moment from 'moment';
+
 
 describe('TaskService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
@@ -137,14 +139,15 @@ describe('TaskService', () => {
     });
     it('addTask() should add new task to the Tasks[]', () => {
       const service: TaskService = new TaskService();
-      service.addTask({ id: 1, title: 'meeting', createdOn: service.today.toString(), important: true, dueDate: service.today.toString() });
+      service.addTask({ id: 1, title: 'meeting', createdOn: moment().format('DD/MM/YYYY'),
+       important: true, dueDate: moment().format('DD/MM/YYYY')});
       const expectedTask = service.getTask().pop();
       const maxId = service.getTask().map(task => task.id).sort((a, b) => {
         return a > b ? b : a;
       }).pop();
       expect({
-        id: maxId, title: 'meeting', createdOn : service.today.toString(),
-        important: true, dueDate: service.today.toString()
+        id: maxId, title: 'meeting', createdOn :  moment().format('DD/MM/YYYY'),
+        important: true, dueDate:  moment().format('DD/MM/YYYY')
       }).toEqual(expectedTask);
     });
   });
