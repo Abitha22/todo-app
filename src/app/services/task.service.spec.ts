@@ -205,7 +205,7 @@ describe('TaskService', () => {
         const service: TaskService = new TaskService();
         expect(typeof service.getTaskDetails).toBe('function');
         });
-      it('should convert string into number' , () => {
+      it('should get task based on Id' , () => {
           const service: TaskService = new TaskService();
           const result = service.getTaskDetails('1');
           expect(result).toBe(Tasks[0]);
