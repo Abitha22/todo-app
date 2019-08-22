@@ -103,4 +103,7 @@ describe('DetailsPage', () => {
             dueDate: '12/08/2019'
         })).toBeTruthy();
     });
+    it('Should have a updateDate()', () => {
+        expect(typeof component.updateDate).toBe('function');
+    });
 });

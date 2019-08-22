@@ -6,7 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { CalendarModule } from '../../../node_modules/ion2-calendar';
 import { DetailsPage } from './details.page';
-import { CalendarComponent } from './calendar/calendar.component';
+import { CalendarComponent } from '../calendar/calendar.component';
 
 const routes: Routes = [
   {

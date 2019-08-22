@@ -8,9 +8,9 @@ import { Task } from '../models/task';
   styleUrls: ['./details.page.scss'],
 })
 export class DetailsPage {
-  getTaskId;
-  taskDetails;
-  show;
+  getTaskId: string;
+  taskDetails: Task;
+  show: boolean;
   constructor(private router: ActivatedRoute, private taskService: TaskService) {
     this.getTaskId = this.router.snapshot.paramMap.get('id');
     this.taskDetails = this.taskService.getTaskDetails(this.getTaskId);
@@ -18,7 +18,7 @@ export class DetailsPage {
   updateTask(task: Task) {
    return this.taskService.updateTask(task);
   }
-  updateDate(date) {
+  updateDate(date: string) {
     this.show = true;
     if (date !== undefined) {
       this.taskDetails.dueDate = date;

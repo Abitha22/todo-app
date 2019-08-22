@@ -85,29 +85,6 @@ describe('TasksListPage', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-
-  it('should have title as Tasks', () => {
-    component.tasks = Tasks;
-    fixture.detectChanges();
-    const element: HTMLDivElement = fixture.nativeElement;
-    const content = element.querySelector('ion-title');
-    expect(content.textContent).toEqual('Tasks');
-  });
-  it('should take auto-hide value as false', () => {
-    component.tasks = Tasks;
-    fixture.detectChanges();
-    const element: HTMLDivElement = fixture.nativeElement;
-    const content = element.querySelector(' ion-content > ion-menu-toggle');
-    expect(content.getAttribute('auto-hide')).toBe('false');
-  });
-  it('should be able to  take the task values', inject([TaskService], () => {
-    component.tasks = Tasks;
-    fixture.detectChanges();
-    const element: HTMLDivElement = fixture.nativeElement;
-    const content = element.querySelector('ion-content');
-    expect(content.textContent).toBeTruthy();
-  }));
-
   it('Should call the TasksService Internally', () => {
     const getTasks = spyOn(TestBed.get(TaskService), 'getTask');
     service.getTask();
