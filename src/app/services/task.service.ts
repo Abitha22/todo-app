@@ -20,22 +20,17 @@ export class TaskService {
   }
 
   getTask(filter?: Filter): Array<Task> {
-
     const filters = Object.keys(filter || {});
     return this.Tasks.filter(task => {
-      return filters.every(filterKey =>
-        (filter[filterKey] === undefined || filter[filterKey] === '') ? true : task[filterKey] === filter[filterKey]);
+    return filters.every(filterKey =>
+    (filter[filterKey] === undefined || filter[filterKey] === '') ? true : task[filterKey] === filter[filterKey]);
     });
   }
-
-
-
-
   deleteTask(id: number) {
     const index = this.Tasks.findIndex(task => task.id === id);
     console.log(`got id ${id} index ${index}`);
     if (index < 0) {
-      throw Error('id not found');
+    throw Error('id not found');
     }
     this.Tasks.splice(index, 1);
     return this.Tasks;
@@ -49,7 +44,7 @@ export class TaskService {
 
   task(title: string) {
      const task: Task = {
-      id : this.Tasks.reduce((a, b) => {
+     id : this.Tasks.reduce((a, b) => {
         if (a.id > b.id) {
           return {
             id: a.id
