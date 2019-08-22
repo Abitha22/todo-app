@@ -26,14 +26,14 @@ describe('CalendarComponent', () => {
   });
   describe('Output', () => {
     it('should call date() on click the button', () => {
-      const button = fixture.nativeElement.querySelector('ion-button');
+      const button = fixture.nativeElement.querySelector('ion-calendar');
       spyOn(component, 'date');
       button.dispatchEvent(new Event('click'));
       fixture.detectChanges();
       expect(component.date).toHaveBeenCalled();
     });
     it('should emit the event while we call the date()', fakeAsync(() => {
-      const button = fixture.nativeElement.querySelector('ion-button');
+      const button = fixture.nativeElement.querySelector('ion-calendar');
       spyOn(component.outDate, 'emit');
       button.dispatchEvent(new Event('click'));
       fixture.detectChanges();
