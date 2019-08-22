@@ -27,7 +27,6 @@ describe('TaskService', () => {
   });
   it('getTask() should accept a filter as argument', () => {
     const service: TaskService = new TaskService();
-    const task = service.getTask();
     expect(service.getTask({ createdOn: '', important: true, dueDate: '' })).toBeTruthy();
   });
   it('should be able to get the tasks filtered based on important as true', () => {
