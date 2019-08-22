@@ -27,7 +27,6 @@ describe('TaskService', () => {
   });
   it('getTask() should accept a filter as argument', () => {
     const service: TaskService = new TaskService();
-    const task = service.getTask();
     expect(service.getTask({ createdOn: '', important: true, dueDate: '' })).toBeTruthy();
   });
   it('should be able to get the tasks filtered based on important as true', () => {
@@ -200,8 +199,7 @@ describe('TaskService', () => {
         dueDate: '13/09/2019'
       });
     });
-  });
-  describe('getTaskDetails', () => {
+    describe('getTaskDetails', () => {
     it('should have method getTaskDetails' , () => {
       const service: TaskService = new TaskService();
       expect(typeof service.getTaskDetails).toBe('function');
@@ -215,7 +213,4 @@ describe('TaskService', () => {
       });
     });
 });
-
-
-
-
+});

@@ -1,4 +1,4 @@
-<ion-header>
+<!-- <ion-header>
   <ion-toolbar>
     <ion-title>details</ion-title>
   </ion-toolbar>
@@ -7,11 +7,11 @@
 <ion-content (blur)="updateTask(taskDetails)">
   <ion-list>
     <ion-item>
-      <ion-input [(ngModel)]="taskDetails.title"></ion-input>
+      <ion-input *ngIf="taskDetails" [(ngModel)]="taskDetails.title"></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-checkbox [(ngModel)]="taskDetails.important"></ion-checkbox>
+      <ion-checkbox *ngIf="taskDetails" [(ngModel)]="taskDetails.important"></ion-checkbox>
       <label *ngIf=taskDetails.important>Mark as Unimportant</label>
       <label *ngIf=!taskDetails.important>Mark as Important</label>
     </ion-item>
@@ -31,4 +31,4 @@
 
   <app-calendar *ngIf=show (outDate)="updateDate($event)"></app-calendar>
 
-</ion-content>
+</ion-content> -->

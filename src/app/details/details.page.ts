@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TaskService } from '../services/task.service';
+import { Task } from '../models/task';
 @Component({
   selector: 'app-details',
   templateUrl: './details.page.html',
@@ -10,12 +11,12 @@ export class DetailsPage {
   getTaskId;
   taskDetails;
   show;
-  constructor(private router: ActivatedRoute, private taskservice: TaskService) {
+  constructor(private router: ActivatedRoute, private taskService: TaskService) {
     this.getTaskId = this.router.snapshot.paramMap.get('id');
-    this.taskDetails = this.taskservice.getTaskDetails(this.getTaskId);
+    this.taskDetails = this.taskService.getTaskDetails(this.getTaskId);
   }
-  updateTask(task) {
-    this.taskservice.updateTask(task);
+  updateTask(task: Task) {
+   return this.taskService.updateTask(task);
   }
   updateDate(date) {
     this.show = true;
