@@ -201,6 +201,19 @@ describe('TaskService', () => {
       });
     });
   });
+  describe('getTaskDetails', () => {
+    it('should have method getTaskDetails' , () => {
+      const service: TaskService = new TaskService();
+      expect(typeof service.getTaskDetails).toBe('function');
+      });
+    it('should get task based on id' , () => {
+        const service: TaskService = new TaskService();
+        const result = service.getTaskDetails('1');
+        const index = Tasks.findIndex(task => task.id === 1);
+        const expectResult = Tasks[index];
+        expect(result).toBe(expectResult);
+      });
+    });
 });
 
 

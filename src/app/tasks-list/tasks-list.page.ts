@@ -32,6 +32,5 @@ export class TasksListPage {
   addTask(title: string) {
    const task: Task = this.taskservice.task(title);
    this.tasks = this.taskservice.addTask(task);
-   console.log(this.tasks);
   }
 }
