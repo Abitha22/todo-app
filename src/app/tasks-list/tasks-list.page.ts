@@ -10,22 +10,22 @@ import { Task } from '../models/task';
 })
 export class TasksListPage {
 
-  tasks;
+  tasks: Array<Task>;
   constructor(private taskservice: TaskService, public router: Router) {
     this.tasks = this.taskservice.getTask();
   }
-  unImportant(task) {
+  unImportant(task: Task) {
     task.important = !task.important;
     this.taskservice.updateTask(task);
   }
-  important(task) {
+  important(task: Task) {
     task.important = !task.important;
     this.taskservice.updateTask(task);
   }
-  taskDetails(task) {
+  taskDetails(task: Task) {
     this.router.navigate(['tasks-list/details', task.id]);
   }
-  deleteTask(id) {
+  deleteTask(id: number) {
     this.tasks = this.taskservice.deleteTask(id);
   }
   addTask(title: string) {
