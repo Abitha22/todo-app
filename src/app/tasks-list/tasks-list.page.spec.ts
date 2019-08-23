@@ -136,4 +136,10 @@ describe('TasksListPage', () => {
       expect(tasks.length).toBe(service.getTask().length);
     });
   });
+  it('should check whether newtask component is displaying using app-newtask selector', () => {
+    fixture.detectChanges();
+    const element: HTMLDivElement = fixture.nativeElement;
+    const content = element.querySelector('app-newtask');
+    expect(content).toBeTruthy();
+    });
 });

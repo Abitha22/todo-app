@@ -92,4 +92,11 @@ describe('DetailsPage', () => {
             dueDate: '12/08/2019'
         })).toBeTruthy();
     });
+    it('should check whether calendar is displaying using app-calendar selector', () => {
+        component.show = true;
+        fixture.detectChanges();
+        const element: HTMLDivElement = fixture.nativeElement;
+        const content = element.querySelector('app-calendar');
+        expect(content).toBeTruthy();
+        });
 });

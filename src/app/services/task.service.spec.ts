@@ -207,4 +207,11 @@ describe('TaskService', () => {
       });
     });
 });
+
+  describe('task', () => {
+  it('should have a Method task()', () => {
+    const service: TaskService = new TaskService();
+    expect(typeof service.task).toBe('function');
+  });
+});
 });
