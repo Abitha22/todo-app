@@ -7,7 +7,7 @@ import { Task } from '../../models/task';
 })
 export class NewtaskComponent {
   @Output()
-  outTaskTitle = new EventEmitter<Task>();
+  outTaskTitle = new EventEmitter<string>();
   enterTaskTitle(title) {
     if (title.value !== '') {
       this.outTaskTitle.emit(title.value);

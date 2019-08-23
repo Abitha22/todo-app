@@ -122,32 +122,26 @@ describe('TaskService', () => {
     it('addTask() should accept a Task as argument', () => {
       const service: TaskService = new TaskService();
       expect(service.addTask({
-        id: 1, title: 'meeting',
-        createdOn: '12/08/2019', important: true, dueDate: '12/08/2019'
-      })).toBeTruthy();
+        title: 'meeting' })).toBeTruthy();
     });
     it('should return the type array of addTasks()', () => {
       const service: TaskService = new TaskService();
-      const result = service.addTask({ id: 1, title: 'meeting', createdOn: '12/08/2019', important: true, dueDate: '12/08/2019' });
+      const result = service.addTask({ title: 'meeting'});
       expect(Array.isArray(result)).toBe(true);
     });
     it('should return the added Tasks', () => {
       const service: TaskService = new TaskService();
-      const expectedTasks = service.addTask({ id: 1, title: 'meeting', createdOn: '12/08/2019', important: true, dueDate: '12/08/2019' });
+      const expectedTasks = service.addTask({title: 'meeting' });
       expect(expectedTasks).toEqual(service.getTask());
     });
     it('addTask() should add new task to the Tasks[]', () => {
       const service: TaskService = new TaskService();
-      service.addTask({ id: 1, title: 'meeting', createdOn: moment().format('DD/MM/YYYY'),
-       important: true, dueDate: moment().format('DD/MM/YYYY')});
+      service.addTask({title: 'meeting'});
       const expectedTask = service.getTask().pop();
       const maxId = service.getTask().map(task => task.id).sort((a, b) => {
         return a > b ? b : a;
       }).pop();
-      expect({
-        id: maxId, title: 'meeting', createdOn :  moment().format('DD/MM/YYYY'),
-        important: true, dueDate:  moment().format('DD/MM/YYYY')
-      }).toEqual(expectedTask);
+      expect(maxId).toEqual(expectedTask.id);
     });
   });
 

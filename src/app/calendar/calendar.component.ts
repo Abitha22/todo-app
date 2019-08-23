@@ -7,6 +7,7 @@ import { Component, Output, EventEmitter } from '@angular/core';
 })
 export class CalendarComponent {
   format;
+  myDate;
   @Output()
   outDate = new EventEmitter();
   date(date) {

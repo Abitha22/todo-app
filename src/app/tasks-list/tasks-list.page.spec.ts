@@ -90,13 +90,14 @@ describe('TasksListPage', () => {
     service.getTask();
     expect(getTasks).toHaveBeenCalled();
   });
-  it('should send the task while click event is called  ', () => {
-    component.tasks = Tasks;
-    fixture.detectChanges();
-    const element: HTMLDivElement = fixture.nativeElement;
-    const content = element.querySelector('.update');
-    expect(content.getAttribute('title')).toBe('view details');
-  });
+  it('should able to get tasks when taskservice is called', fakeAsync(()  => {
+  spyOn(service, 'getTask');
+  const element: HTMLDivElement = fixture.nativeElement;
+  const expectedTasks = element.querySelectorAll('ion-content > ion-menu-toggle');
+  const tasks = service.getTask();
+  console.log('expected tasks', tasks);
+  expect(expectedTasks.length).toEqual(dummyTasks.length);
+  }));
 
   describe('UpdateTask', () => {
     it('should navigate to the detals page when edit button is clicked', fakeAsync(() => {
@@ -119,22 +120,26 @@ describe('TasksListPage', () => {
     }));
   });
   describe('DeleteTask', () => {
-    it('should call deleteTask() when delete icon is clicked', fakeAsync(() => {
-      spyOn(component, 'deleteTask');
-      const icon = fixture.debugElement.query(By.css('.delete'));
-      icon.triggerEventHandler('click', null);
+    it('should have a trash icon which is placed at right side of the page', () => {
+      component.tasks = Tasks;
       fixture.detectChanges();
-      expect(component.deleteTask).toHaveBeenCalled();
-    }));
-    // it('should delete task based on id', fakeAsync(() => {
-    //   spyOn(component, 'deleteTask');
-    //   const icon = fixture.debugElement.query(By.css('.delete'));
-    //   icon.triggerEventHandler('click', null);
-    //   fixture.detectChanges();
-    //   const index = dummyTasks.findIndex(task => task.id === 1);
-    //   const result = service.deleteTask(index);
-    //   expect(result).toEqual(service.getTask());
-    // }));
+      const element: HTMLDivElement = fixture.nativeElement;
+      const content = element.querySelector('.delete');
+      expect(content.getAttribute('slot')).toBe('end');
+    });
+    it('should have a trash icon to delete the tasks', () => {
+    component.tasks = Tasks;
+    fixture.detectChanges();
+    const element: HTMLDivElement = fixture.nativeElement;
+    const content = element.querySelector('.delete');
+    expect(content.getAttribute('name')).toBe('trash');
+   });
+    it('should call taskservice to delete the task and display the reamining tasks on the page', () => {
+      component.tasks = Tasks;
+      fixture.detectChanges();
+      const tasks = service.deleteTask(1);
+      console.log('tasks', tasks);
+   });
   });
   it('should call taskDetails() when event is happened', fakeAsync(() => {
     spyOn(component, 'taskDetails');

@@ -5,6 +5,7 @@ import { DetailsPage } from './details.page';
 import { TaskService } from '../services/task.service';
 import { Task } from '../models/task';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Tasks } from '../data/tasks';
 const dummyTasks: Array<Task> = [
     {
         id: 1,
@@ -23,19 +24,10 @@ const dummyTasks: Array<Task> = [
 
 class MockTaskService {
     getTaskDetails(id) {
-        const idvalue = parseInt(id , 10);
-        const index = dummyTasks.findIndex(task => task.id === idvalue);
-        return dummyTasks[index];
+        return Tasks[id];
     }
     updateTask(task) {
-        for (let i = 0; i < dummyTasks.length; i++) {
-            if (task.id >= 0) {
-              if (task.id === dummyTasks[i].id) {
-                dummyTasks[i] = task;
-                return dummyTasks[i];
-              }
-            }
-          }
+        return task;
     }
 }
 const fakeActivatedRoute = {
@@ -80,10 +72,10 @@ describe('DetailsPage', () => {
         expect(component).toBeTruthy();
     });
     it('Should call service.getTaskDetails() Internally', () => {
-        const getTaskDetails = spyOn(TestBed.get(TaskService), 'getTaskDetails');
-        const getTaskId = fakeActivatedRoute.snapshot.paramMap.get('id');
-        service.getTaskDetails(getTaskId);
-        expect(getTaskDetails).toHaveBeenCalled();
+        const taskDetails = spyOn(TestBed.get(TaskService), 'getTaskDetails');
+        const taskId = fakeActivatedRoute.snapshot.paramMap.get('id');
+        service.getTaskDetails(taskId);
+        expect(taskDetails).toHaveBeenCalled();
     });
     it('Should get task based on the id', () => {
         const getTaskId = fakeActivatedRoute.snapshot.paramMap.get('id');
@@ -91,10 +83,7 @@ describe('DetailsPage', () => {
         spyOn(TestBed.get(TaskService), 'getTaskDetails');
         expect(component.taskDetails).toEqual(task);
     });
-    it('Should have a updateTask()', () => {
-        expect(typeof component.updateTask).toBe('function');
-    });
-    it('Should accept Task as argument', () => {
+    it('Should accept Task as argument to update task', () => {
         expect(component.updateTask( {
             id: 1,
             title: 'meeting',
@@ -102,8 +91,5 @@ describe('DetailsPage', () => {
             important: true,
             dueDate: '12/08/2019'
         })).toBeTruthy();
-    });
-    it('Should have a updateDate()', () => {
-        expect(typeof component.updateDate).toBe('function');
     });
 });

@@ -9,12 +9,14 @@ import * as moment from 'moment';
 })
 export class TaskService {
   Tasks: Task[];
+  title: {};
+
   constructor() {
     this.Tasks = sampleTasks.map(task => task);
   }
-  getTaskDetails(id: string) {
-    const idvalue = parseInt(id, 10);
-    const index = this.Tasks.findIndex(task => task.id === idvalue);
+  getTaskDetails(id) {
+    // tslint:disable-next-line:triple-equals
+    const index = this.Tasks.findIndex(task => task.id == id);
     return this.Tasks[index];
   }
   getTask(filter?: Filter): Array<Task> {
@@ -33,12 +35,14 @@ export class TaskService {
     this.Tasks.splice(index, 1);
     return this.Tasks;
   }
-  addTask(task: Task): Array<Task> {
-    this.Tasks.push(task);
-    console.log(task);
+  addTask(title: {}): Array<Task> {
+    const newTask = Object.assign(this.task(), title);
+    this.Tasks.push(newTask);
+    console.log(newTask);
     return this.Tasks;
   }
-  task(title: string) {
+
+    task() {
     const task: Task = {
       id: this.Tasks.reduce((a, b) => {
         if (a.id > b.id) {
@@ -50,7 +54,7 @@ export class TaskService {
           id: b.id
         };
       }, { id: 0 }).id + 1,
-      title,
+      title : undefined,
       important: false,
       createdOn: moment().format('DD/MM/YYYY'),
       dueDate: moment().format('DD/MM/YYYY')

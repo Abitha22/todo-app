@@ -8,12 +8,12 @@ import { Task } from '../models/task';
   styleUrls: ['./details.page.scss'],
 })
 export class DetailsPage {
-  getTaskId: string;
+  taskId: string;
   taskDetails: Task;
   show: boolean;
   constructor(private router: ActivatedRoute, private taskService: TaskService) {
-    this.getTaskId = this.router.snapshot.paramMap.get('id');
-    this.taskDetails = this.taskService.getTaskDetails(this.getTaskId);
+    this.taskId = this.router.snapshot.paramMap.get('id');
+    this.taskDetails = this.taskService.getTaskDetails(this.taskId);
   }
   updateTask(task: Task) {
    return this.taskService.updateTask(task);

@@ -24,35 +24,32 @@ describe('NewtaskComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-  it('should have the method enterTask()', () => {
-    expect(typeof component.enterTaskTitle).toBe('function');
-  });
   it('should have a button to add newTask', () => {
     fixture.detectChanges();
     const element: HTMLDivElement = fixture.nativeElement;
-    const content = element.querySelector('.newTask');
-    expect(content.getAttribute('class')).toBe('newTask');
+    const content = element.querySelector('ion-button');
+    expect(content).toBeTruthy();
   });
-  it('should have a button `newTask` which takes data-placement value as `left`', () => {
+  it('should have a button to add tasks which is placed at the end of the page', () => {
     fixture.detectChanges();
     const element: HTMLDivElement = fixture.nativeElement;
     const content = element.querySelector('.newTask');
     expect(content.getAttribute('data-placement')).toBe('left');
   });
   describe('Output', () => {
-    it('should call enterTask on click the button', () => {
+    it('should call a event to add tasks when button is clicked', () => {
       const button = fixture.nativeElement.querySelector('ion-button');
       spyOn(component, 'enterTaskTitle');
       button.dispatchEvent(new Event('click'));
       fixture.detectChanges();
       expect(component.enterTaskTitle).toHaveBeenCalled();
     });
-    it('should emit the event while we call the enterTask()', fakeAsync(() => {
-      const button = fixture.nativeElement.querySelector('ion-button');
+    it('should emit value when event is triggered', fakeAsync(() => {
+      const input = fixture.nativeElement.querySelector('ion-input');
       spyOn(component.outTaskTitle, 'emit');
-      button.dispatchEvent(new Event('click'));
-      fixture.detectChanges();
-      expect(component.outTaskTitle.emit).toHaveBeenCalled();
+      input.value = 'title';
+      component.enterTaskTitle(input);
+      expect(component.outTaskTitle.emit).toHaveBeenCalledWith('title');
     }));
   });
 });
