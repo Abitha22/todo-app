@@ -61,7 +61,7 @@ describe('TasksListPage', () => {
       declarations: [TasksListPage],
       imports: [RouterTestingModule.withRoutes(routes)],
       providers: [TaskService,
-        { provide: ActivatedRoute, useValue: fakeActivatedRoute },
+        { provide: ActivatedRoute},
         {
           provide: TaskService, useClass: MockTaskService
 
@@ -100,26 +100,24 @@ describe('TasksListPage', () => {
   }));
 
   describe('UpdateTask', () => {
-    it('should navigate to the detals page when edit button is clicked', fakeAsync(() => {
-      spyOn(component, 'taskDetails');
-      const btn = fixture.debugElement.query(By.css('.update'));
-      btn.triggerEventHandler('click', null);
-      fixture.detectChanges();
-      expect(component.taskDetails).toHaveBeenCalled();
-    }));
-    it('should navigate to the detals page when edit button is clicked', fakeAsync(() => {
-      spyOn(component, 'taskDetails');
-      component.tasks = service.getTask();
-      const btn = fixture.debugElement.query(By.css('.update'));
-      btn.triggerEventHandler('click', null);
-      const getTaskId = fakeActivatedRoute.snapshot.paramMap.get();
-      fixture.detectChanges();
-      router.navigate(['tasks-list/details/' + getTaskId]).then(() => {
-        expect(location.path()).toBe('/tasks-list/details/' + getTaskId);
-      });
-    }));
+    it('should have edit icon to delete the icon', () => {
+      const element: HTMLDivElement = fixture.nativeElement;
+      const content = element.querySelector('.update');
+      expect(content.getAttribute('name')).toBe('create');
+    });
+    it('should have a edit icon which is placed at right side of the page', () => {
+      const element: HTMLDivElement = fixture.nativeElement;
+      const content = element.querySelector('.update');
+      expect(content.getAttribute('slot')).toBe('end');
+    });
+    it('should navigate to details page with valide Id', () => {
+      const element: HTMLDivElement = fixture.nativeElement;
+      const content = element.querySelector('.update');
+      expect(content.getAttribute('slot')).toBe('end');
+    });
   });
   describe('DeleteTask', () => {
+<<<<<<< HEAD
     it('should have a trash icon which is placed at right side of the page', () => {
       component.tasks = Tasks;
       fixture.detectChanges();
@@ -140,19 +138,25 @@ describe('TasksListPage', () => {
       const tasks = service.deleteTask(1);
       console.log('tasks', tasks);
    });
+=======
+    it('should have trash icon to delete the icon', () => {
+      const element: HTMLDivElement = fixture.nativeElement;
+      const content = element.querySelector('.delete');
+      expect(content.getAttribute('name')).toBe('trash');
+    });
+    it('should have a trash icon which is placed at right side of the page', () => {
+      const element: HTMLDivElement = fixture.nativeElement;
+      const content = element.querySelector('.delete');
+      expect(content.getAttribute('slot')).toBe('end');
+    });
+    it('should call taskservice to delete the task and display remaining tasks on the page', () => {
+      const btn = fixture.debugElement.query(By.css('.update'));
+      btn.triggerEventHandler('click', null);
+      fixture.detectChanges();
+      spyOn(component, 'deleteTask' );
+      const tasks = service.deleteTask(1);
+      expect(tasks.length).toBe(service.getTask().length);
+    });
+>>>>>>> 1093ed4b67b3192359e1ea2f16cbd285bb476fb9
   });
-  it('should call taskDetails() when event is happened', fakeAsync(() => {
-    spyOn(component, 'taskDetails');
-    const btn = fixture.debugElement.query(By.css('.update'));
-    btn.triggerEventHandler('click', null);
-    fixture.detectChanges();
-    expect(component.taskDetails).toHaveBeenCalled();
-  }));
-  it('should call deleteTask() when event is happened', fakeAsync(() => {
-    spyOn(component, 'deleteTask');
-    const icon = fixture.debugElement.query(By.css('.delete'));
-    icon.triggerEventHandler('click', null);
-    fixture.detectChanges();
-    expect(component.deleteTask).toHaveBeenCalled();
-  }));
 });
