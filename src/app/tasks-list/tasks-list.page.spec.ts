@@ -117,28 +117,6 @@ describe('TasksListPage', () => {
     });
   });
   describe('DeleteTask', () => {
-<<<<<<< HEAD
-    it('should have a trash icon which is placed at right side of the page', () => {
-      component.tasks = Tasks;
-      fixture.detectChanges();
-      const element: HTMLDivElement = fixture.nativeElement;
-      const content = element.querySelector('.delete');
-      expect(content.getAttribute('slot')).toBe('end');
-    });
-    it('should have a trash icon to delete the tasks', () => {
-    component.tasks = Tasks;
-    fixture.detectChanges();
-    const element: HTMLDivElement = fixture.nativeElement;
-    const content = element.querySelector('.delete');
-    expect(content.getAttribute('name')).toBe('trash');
-   });
-    it('should call taskservice to delete the task and display the reamining tasks on the page', () => {
-      component.tasks = Tasks;
-      fixture.detectChanges();
-      const tasks = service.deleteTask(1);
-      console.log('tasks', tasks);
-   });
-=======
     it('should have trash icon to delete the icon', () => {
       const element: HTMLDivElement = fixture.nativeElement;
       const content = element.querySelector('.delete');
@@ -157,6 +135,5 @@ describe('TasksListPage', () => {
       const tasks = service.deleteTask(1);
       expect(tasks.length).toBe(service.getTask().length);
     });
->>>>>>> 1093ed4b67b3192359e1ea2f16cbd285bb476fb9
   });
 });
