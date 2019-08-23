@@ -61,7 +61,7 @@ describe('TasksListPage', () => {
       declarations: [TasksListPage],
       imports: [RouterTestingModule.withRoutes(routes)],
       providers: [TaskService,
-        { provide: ActivatedRoute, useValue: fakeActivatedRoute },
+        { provide: ActivatedRoute},
         {
           provide: TaskService, useClass: MockTaskService
 
@@ -99,55 +99,40 @@ describe('TasksListPage', () => {
   });
 
   describe('UpdateTask', () => {
-    it('should navigate to the detals page when edit button is clicked', fakeAsync(() => {
-      spyOn(component, 'taskDetails');
-      const btn = fixture.debugElement.query(By.css('.update'));
-      btn.triggerEventHandler('click', null);
-      fixture.detectChanges();
-      expect(component.taskDetails).toHaveBeenCalled();
-    }));
-    it('should navigate to the detals page when edit button is clicked', fakeAsync(() => {
-      spyOn(component, 'taskDetails');
-      component.tasks = service.getTask();
-      const btn = fixture.debugElement.query(By.css('.update'));
-      btn.triggerEventHandler('click', null);
-      const getTaskId = fakeActivatedRoute.snapshot.paramMap.get();
-      fixture.detectChanges();
-      router.navigate(['tasks-list/details/' + getTaskId]).then(() => {
-        expect(location.path()).toBe('/tasks-list/details/' + getTaskId);
-      });
-    }));
+    it('should have edit icon to delete the icon', () => {
+      const element: HTMLDivElement = fixture.nativeElement;
+      const content = element.querySelector('.update');
+      expect(content.getAttribute('name')).toBe('create');
+    });
+    it('should have a edit icon which is placed at right side of the page', () => {
+      const element: HTMLDivElement = fixture.nativeElement;
+      const content = element.querySelector('.update');
+      expect(content.getAttribute('slot')).toBe('end');
+    });
+    it('should navigate to details page with valide Id', () => {
+      const element: HTMLDivElement = fixture.nativeElement;
+      const content = element.querySelector('.update');
+      expect(content.getAttribute('slot')).toBe('end');
+    });
   });
   describe('DeleteTask', () => {
-    it('should call deleteTask() when delete icon is clicked', fakeAsync(() => {
-      spyOn(component, 'deleteTask');
-      const icon = fixture.debugElement.query(By.css('.delete'));
-      icon.triggerEventHandler('click', null);
+    it('should have trash icon to delete the icon', () => {
+      const element: HTMLDivElement = fixture.nativeElement;
+      const content = element.querySelector('.delete');
+      expect(content.getAttribute('name')).toBe('trash');
+    });
+    it('should have a trash icon which is placed at right side of the page', () => {
+      const element: HTMLDivElement = fixture.nativeElement;
+      const content = element.querySelector('.delete');
+      expect(content.getAttribute('slot')).toBe('end');
+    });
+    it('should call taskservice to delete the task and display remaining tasks on the page', () => {
+      const btn = fixture.debugElement.query(By.css('.update'));
+      btn.triggerEventHandler('click', null);
       fixture.detectChanges();
-      expect(component.deleteTask).toHaveBeenCalled();
-    }));
-    // it('should delete task based on id', fakeAsync(() => {
-    //   spyOn(component, 'deleteTask');
-    //   const icon = fixture.debugElement.query(By.css('.delete'));
-    //   icon.triggerEventHandler('click', null);
-    //   fixture.detectChanges();
-    //   const index = dummyTasks.findIndex(task => task.id === 1);
-    //   const result = service.deleteTask(index);
-    //   expect(result).toEqual(service.getTask());
-    // }));
+      spyOn(component, 'deleteTask' );
+      const tasks = service.deleteTask(1);
+      expect(tasks.length).toBe(service.getTask().length);
+    });
   });
-  it('should call taskDetails() when event is happened', fakeAsync(() => {
-    spyOn(component, 'taskDetails');
-    const btn = fixture.debugElement.query(By.css('.update'));
-    btn.triggerEventHandler('click', null);
-    fixture.detectChanges();
-    expect(component.taskDetails).toHaveBeenCalled();
-  }));
-  it('should call deleteTask() when event is happened', fakeAsync(() => {
-    spyOn(component, 'deleteTask');
-    const icon = fixture.debugElement.query(By.css('.delete'));
-    icon.triggerEventHandler('click', null);
-    fixture.detectChanges();
-    expect(component.deleteTask).toHaveBeenCalled();
-  }));
 });
