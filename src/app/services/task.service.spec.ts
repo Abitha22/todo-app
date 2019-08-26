@@ -200,18 +200,11 @@ describe('TaskService', () => {
       });
     it('should get task based on id' , () => {
         const service: TaskService = new TaskService();
-        const result = service.getTaskDetails('1');
+        const result = service.getTaskDetails(1);
         const index = Tasks.findIndex(task => task.id === 1);
         const expectResult = Tasks[index];
         expect(result).toBe(expectResult);
       });
     });
-});
-
-  describe('task', () => {
-  it('should have a Method task()', () => {
-    const service: TaskService = new TaskService();
-    expect(typeof service.task).toBe('function');
-  });
 });
 });

@@ -14,7 +14,7 @@ export class TaskService {
   constructor() {
     this.Tasks = sampleTasks.map(task => task);
   }
-  getTaskDetails(id) {
+  getTaskDetails(id): Task {
     // tslint:disable-next-line:triple-equals
     const index = this.Tasks.findIndex(task => task.id == id);
     return this.Tasks[index];

@@ -30,14 +30,14 @@ describe('NewtaskComponent', () => {
     const content = element.querySelector('ion-button');
     expect(content).toBeTruthy();
   });
-  it('should have a button to add tasks which is placed at the end of the page', () => {
+  it('should have a button to add tasks which is placed at the right of the page', () => {
     fixture.detectChanges();
     const element: HTMLDivElement = fixture.nativeElement;
     const content = element.querySelector('.newTask');
     expect(content.getAttribute('data-placement')).toBe('left');
   });
   describe('Output', () => {
-    it('should call a event to add tasks when button is clicked', () => {
+    it('should trigger an event to add tasks when button is clicked', () => {
       const button = fixture.nativeElement.querySelector('ion-button');
       spyOn(component, 'enterTaskTitle');
       button.dispatchEvent(new Event('click'));
