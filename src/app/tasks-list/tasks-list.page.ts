@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { TaskService } from '../services/task.service';
-import { Router } from '@angular/router';
+import { Router } from '../../../node_modules/@angular/router';
 import { Task } from '../models/task';
 
 @Component({
@@ -29,6 +29,6 @@ export class TasksListPage {
     this.tasks = this.taskservice.deleteTask(id);
   }
   addTask(title: string) {
-   this.tasks = this.taskservice.addTask({title});
+   this.tasks = this.taskservice.addTask({ title});
   }
 }

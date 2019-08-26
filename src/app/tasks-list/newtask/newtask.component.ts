@@ -1,4 +1,5 @@
 import { Component, Output, EventEmitter } from '@angular/core';
+import { Task } from '../../models/task';
 @Component({
   selector: 'app-newtask',
   templateUrl: './newtask.component.html',
@@ -6,7 +7,7 @@ import { Component, Output, EventEmitter } from '@angular/core';
 })
 export class NewtaskComponent {
   @Output()
-  outTaskTitle = new EventEmitter<string>();
+  outTaskTitle = new EventEmitter<Task>();
   enterTaskTitle(title) {
     if (title.value !== '') {
       this.outTaskTitle.emit(title.value);

@@ -85,11 +85,6 @@ describe('TasksListPage', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-  it('should have title tasks', () => {
-    const element: HTMLDivElement = fixture.nativeElement;
-    const title = element.querySelector('ion-title');
-    expect(title.textContent).toBe('Tasks');
-  });
   it('Should call the TasksService Internally', () => {
     const getTasks = spyOn(TestBed.get(TaskService), 'getTask');
     service.getTask();
@@ -104,23 +99,25 @@ describe('TasksListPage', () => {
   expect(expectedTasks.length).toEqual(dummyTasks.length);
   }));
 
-  describe('TaskDetails', () => {
-    it('should have edit icon to update the task', () => {
+  describe('UpdateTask', () => {
+    it('should have edit icon to delete the icon', () => {
       const element: HTMLDivElement = fixture.nativeElement;
-      const content = element.querySelector('.details');
+      const content = element.querySelector('.update');
       expect(content.getAttribute('name')).toBe('create');
     });
     it('should have a edit icon which is placed at right side of the page', () => {
       const element: HTMLDivElement = fixture.nativeElement;
-      const content = element.querySelector('.details');
+      const content = element.querySelector('.update');
       expect(content.getAttribute('slot')).toBe('end');
     });
-    it('should navigate to details page with valid id', () => {
-
+    it('should navigate to details page with valid Id', () => {
+      const element: HTMLDivElement = fixture.nativeElement;
+      const content = element.querySelector('.update');
+      expect(content.getAttribute('slot')).toBe('end');
     });
   });
   describe('DeleteTask', () => {
-    it('should have trash icon to delete the task', () => {
+    it('should have trash icon to delete the icon', () => {
       const element: HTMLDivElement = fixture.nativeElement;
       const content = element.querySelector('.delete');
       expect(content.getAttribute('name')).toBe('trash');
@@ -131,7 +128,7 @@ describe('TasksListPage', () => {
       expect(content.getAttribute('slot')).toBe('end');
     });
     it('should call taskservice to delete the task and display remaining tasks on the page', () => {
-      const btn = fixture.debugElement.query(By.css('.details'));
+      const btn = fixture.debugElement.query(By.css('.update'));
       btn.triggerEventHandler('click', null);
       fixture.detectChanges();
       spyOn(component, 'deleteTask' );
@@ -139,7 +136,7 @@ describe('TasksListPage', () => {
       expect(tasks.length).toBe(service.getTask().length);
     });
   });
-  it('newtask component should display using app-newtask selector', () => {
+  it('should check whether newtask component is displaying using app-newtask selector', () => {
     fixture.detectChanges();
     const element: HTMLDivElement = fixture.nativeElement;
     const content = element.querySelector('app-newtask');

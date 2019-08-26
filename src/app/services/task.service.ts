@@ -9,12 +9,11 @@ import * as moment from 'moment';
 })
 export class TaskService {
   Tasks: Task[];
-  title: {};
-
   constructor() {
     this.Tasks = sampleTasks.map(task => task);
   }
-  getTaskDetails(id): Task {
+  // tslint:disable-next-line: triple-equals
+  getTaskDetails(id) {
     // tslint:disable-next-line:triple-equals
     const index = this.Tasks.findIndex(task => task.id == id);
     return this.Tasks[index];
@@ -41,8 +40,7 @@ export class TaskService {
     console.log(newTask);
     return this.Tasks;
   }
-
-    task() {
+  task() {
     const task: Task = {
       id: this.Tasks.reduce((a, b) => {
         if (a.id > b.id) {
