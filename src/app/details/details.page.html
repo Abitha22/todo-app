@@ -5,13 +5,13 @@
 </ion-header>
 
 <ion-content (blur)="updateTask(taskDetails)">
-  <ion-list>
+  <ion-list  *ngIf="taskDetails">
     <ion-item>
-      <ion-input *ngIf="taskDetails" [(ngModel)]="taskDetails.title"></ion-input>
+      <ion-input something="taskDetails.title" [(ngModel)]="taskDetails.title"></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-checkbox *ngIf="taskDetails" [(ngModel)]="taskDetails.important"></ion-checkbox>
+      <ion-checkbox [(ngModel)]="taskDetails.important"></ion-checkbox>
       <label *ngIf=taskDetails.important>Mark as Unimportant</label>
       <label *ngIf=!taskDetails.important>Mark as Important</label>
     </ion-item>

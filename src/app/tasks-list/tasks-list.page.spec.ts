@@ -26,17 +26,12 @@ const dummyTasks: Array<Task> = [
   }];
 class MockTaskService {
   getTask() {
-    return dummyTasks;
   }
-  deleteTask(id) {
-    const index = dummyTasks.findIndex(task => task.id === id);
-    console.log(`got id ${id} index ${index}`);
-    if (index < 0) {
-      throw Error('id not found');
-    }
-    dummyTasks.splice(index, 1);
-    return dummyTasks;
-  }
+  deleteTask() {
+}
+updateTask() {
+
+}
 }
 const fakeActivatedRoute = {
   snapshot: {
@@ -98,51 +93,75 @@ describe('TasksListPage', () => {
   it('should able to get tasks when taskservice is called', fakeAsync(()  => {
   spyOn(service, 'getTask');
   const element: HTMLDivElement = fixture.nativeElement;
-  const expectedTasks = element.querySelectorAll('ion-content > ion-menu-toggle');
+  const expectedTasks = element.querySelectorAll('ion-menu-toggle');
   const tasks = service.getTask();
   console.log('expected tasks', tasks);
   expect(expectedTasks.length).toEqual(dummyTasks.length);
   }));
-
-  describe('TaskDetails', () => {
-    it('should have edit icon to update the task', () => {
-      const element: HTMLDivElement = fixture.nativeElement;
-      const content = element.querySelector('.details');
-      expect(content.getAttribute('name')).toBe('create');
-    });
-    it('should have a edit icon which is placed at right side of the page', () => {
-      const element: HTMLDivElement = fixture.nativeElement;
-      const content = element.querySelector('.details');
-      expect(content.getAttribute('slot')).toBe('end');
-    });
-    it('should navigate to details page with valid id', () => {
-
-    });
-  });
-  describe('DeleteTask', () => {
-    it('should have trash icon to delete the task', () => {
-      const element: HTMLDivElement = fixture.nativeElement;
-      const content = element.querySelector('.delete');
-      expect(content.getAttribute('name')).toBe('trash');
-    });
-    it('should have a trash icon which is placed at right side of the page', () => {
-      const element: HTMLDivElement = fixture.nativeElement;
-      const content = element.querySelector('.delete');
-      expect(content.getAttribute('slot')).toBe('end');
-    });
-    it('should call taskservice to delete the task and display remaining tasks on the page', () => {
-      const btn = fixture.debugElement.query(By.css('.details'));
-      btn.triggerEventHandler('click', null);
-      fixture.detectChanges();
-      spyOn(component, 'deleteTask' );
-      const tasks = service.deleteTask(1);
-      expect(tasks.length).toBe(service.getTask().length);
-    });
-  });
-  it('newtask component should display using app-newtask selector', () => {
-    fixture.detectChanges();
+  it('should have three icons in tasks-list', () => {
     const element: HTMLDivElement = fixture.nativeElement;
-    const content = element.querySelector('app-newtask');
-    expect(content).toBeTruthy();
-    });
+    const icons = element.querySelectorAll('ion-icon');
+    expect(icons.length).toBe(3);
+  });
+  it('should have a icon `star` icon to mark a task to important', () => {
+    const element: HTMLDivElement = fixture.nativeElement;
+    const icons = element.querySelector('.important');
+    expect(icons.getAttribute('name')).toBe('star');
+  });
+  it('should have a icon `star-outline` icon to mark a task to unimportant', () => {
+    component.important(
+      {
+        id: 1,
+        title: 'meeting',
+        createdOn: '12/08/2019',
+        important: true,
+        dueDate: '12/08/2019'
+    }
+    );
+    const element: HTMLDivElement = fixture.nativeElement;
+    const icons = element.querySelector('.unimportant');
+    expect(icons.getAttribute('name')).toBe('star-outline');
+  });
+
+  // describe('TaskDetails', () => {
+  //   it('should have edit icon to update the task', () => {
+  //     const element: HTMLDivElement = fixture.nativeElement;
+  //     const content = element.querySelector('.details');
+  //     expect(content.getAttribute('name')).toBe('create');
+  //   });
+  //   it('should have a edit icon which is placed at right side of the page', () => {
+  //     const element: HTMLDivElement = fixture.nativeElement;
+  //     const content = element.querySelector('.details');
+  //     expect(content.getAttribute('slot')).toBe('end');
+  //   });
+  //   it('should navigate to details page with valid id', () => {
+
+  //   });
+  // });
+  // describe('DeleteTask', () => {
+  //   it('should have trash icon to delete the task', () => {
+  //     const element: HTMLDivElement = fixture.nativeElement;
+  //     const content = element.querySelector('.delete');
+  //     expect(content.getAttribute('name')).toBe('trash');
+  //   });
+  //   it('should have a trash icon which is placed at right side of the page', () => {
+  //     const element: HTMLDivElement = fixture.nativeElement;
+  //     const content = element.querySelector('.delete');
+  //     expect(content.getAttribute('slot')).toBe('end');
+  //   });
+  //   it('should call taskservice to delete the task and display remaining tasks on the page', () => {
+  //     const btn = fixture.debugElement.query(By.css('.details'));
+  //     btn.triggerEventHandler('click', null);
+  //     fixture.detectChanges();
+  //     spyOn(component, 'deleteTask' );
+  //     const tasks = service.deleteTask(1);
+  //     expect(tasks.length).toBe(service.getTask().length);
+  //   });
+  // });
+  // it('newtask component should display using app-newtask selector', () => {
+  //   fixture.detectChanges();
+  //   const element: HTMLDivElement = fixture.nativeElement;
+  //   const content = element.querySelector('app-newtask');
+  //   expect(content).toBeTruthy();
+  //   });
 });

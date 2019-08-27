@@ -7,10 +7,11 @@ import { Component, Output, EventEmitter } from '@angular/core';
 export class NewtaskComponent {
   @Output()
   outTaskTitle = new EventEmitter<string>();
-  enterTaskTitle(title) {
+  enterTaskTitle(title: HTMLInputElement): null {
     if (title.value !== '') {
       this.outTaskTitle.emit(title.value);
       title.value = '';
     }
+    return null;
   }
 }

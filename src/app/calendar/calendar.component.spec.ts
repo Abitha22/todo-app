@@ -39,7 +39,7 @@ describe('CalendarComponent', () => {
         });
   it('should emit selected date when event is triggered', () => {
           spyOn(component.outDate, 'emit');
-          component.date(moment().format('DD/MM/YYYY'));
+          component.selectedDate(moment().format('DD/MM/YYYY'));
           expect(component.outDate.emit).toHaveBeenCalledWith(moment().format('DD/MM/YYYY'));
         });
 

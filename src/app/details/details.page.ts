@@ -14,7 +14,7 @@ export class DetailsPage {
   constructor(private router: ActivatedRoute, private taskService: TaskService) {
     this.taskId = this.router.snapshot.paramMap.get('id');
     this.taskDetails = this.taskService.getTaskDetails(this.taskId);
-  }
+    }
   updateTask(task: Task) {
    return this.taskService.updateTask(task);
   }

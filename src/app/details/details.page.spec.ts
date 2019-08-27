@@ -22,19 +22,19 @@ const dummyTasks: Array<Task> = [
         dueDate: '13/09/2019'
     }];
 
-class MockTaskService {
-    getTaskDetails(id) {
-        return Tasks[id];
+class TaskServiceStub {
+    getTasks() {
     }
-    updateTask(task) {
-        return task;
+    getTaskDetails() {
+    }
+    updateTask() {
     }
 }
 const fakeActivatedRoute = {
     snapshot: {
       paramMap: {
         get(id): string {
-          return '1';
+          return id;
         }
       }
     }
@@ -51,7 +51,7 @@ describe('DetailsPage', () => {
             providers: [TaskService,
                 { provide: ActivatedRoute, useValue: fakeActivatedRoute },
                 {
-                    provide: TaskService, useClass: MockTaskService
+                    provide: TaskService, useClass: TaskServiceStub
 
                 }
             ],
@@ -66,37 +66,80 @@ describe('DetailsPage', () => {
         component = fixture.componentInstance;
         router = TestBed.get(Router);
         fixture.detectChanges();
+
     });
 
     it('should create', () => {
         expect(component).toBeTruthy();
     });
-    it('Should call service.getTaskDetails() Internally', () => {
-        const taskDetails = spyOn(TestBed.get(TaskService), 'getTaskDetails');
-        const taskId = fakeActivatedRoute.snapshot.paramMap.get('id');
-        service.getTaskDetails(taskId);
-        expect(taskDetails).toHaveBeenCalled();
-    });
-    it('Should get task based on the id', () => {
-        const getTaskId = fakeActivatedRoute.snapshot.paramMap.get('id');
-        const task = service.getTaskDetails(getTaskId);
-        spyOn(TestBed.get(TaskService), 'getTaskDetails');
-        expect(component.taskDetails).toEqual(task);
-    });
-    it('Should accept Task as argument to update task', () => {
-        expect(component.updateTask( {
-            id: 1,
-            title: 'meeting',
-            createdOn: '12/08/2019',
-            important: true,
-            dueDate: '12/08/2019'
-        })).toBeTruthy();
-    });
-    it('should check whether calendar is displaying using app-calendar selector', () => {
-        component.show = true;
-        fixture.detectChanges();
-        const element: HTMLDivElement = fixture.nativeElement;
-        const content = element.querySelector('app-calendar');
-        expect(content).toBeTruthy();
+    // it('Should call service.getTaskDetails() Internally', () => {
+    //     const taskDetails = spyOn(TestBed.get(TaskService), 'getTaskDetails');
+    //     const taskId = fakeActivatedRoute.snapshot.paramMap.get('id');
+    //     service.getTaskDetails(taskId);
+    //     expect(taskDetails).toHaveBeenCalled();
+    // });
+    // it('Should get task based on the id', () => {
+    //     const getTaskId = fakeActivatedRoute.snapshot.paramMap.get('id');
+    //     const task = service.getTaskDetails(getTaskId);
+    //     spyOn(TestBed.get(TaskService), 'getTaskDetails');
+    //     expect(component.taskDetails).toEqual(task);
+    // });
+    // it('Should accept Task as argument to update task', () => {
+    //     expect(component.updateTask( {
+    //         id: 1,
+    //         title: 'meeting',
+    //         createdOn: '12/08/2019',
+    //         important: true,
+    //         dueDate: '12/08/2019'
+    //     })).toBeTruthy();
+    // });
+    // it('should check whether calendar is displaying using app-calendar selector', () => {
+    //     component.show = true;
+    //     fixture.detectChanges();
+    //     const element: HTMLDivElement = fixture.nativeElement;
+    //     const content = element.querySelector('app-calendar');
+    //     expect(content).toBeTruthy();
+    //     });
+    describe('Task details populated in HTML', () => {
+        let ionContentElement;
+        beforeEach(() => {
+            const  taskService = TestBed.get(TaskService);
+            
+            spyOn(taskService, 'getTaskDetails').and.returnValue({
+                title: 'meeting1',
+                createdOn: '12/08/2019',
+                important: true,
+                dueDate: '12/08/2019'
+            });
+
+            component.taskDetails = taskService.getTaskDetails(1);
+            console.log(component.taskDetails);
+            fixture.detectChanges();
         });
+
+        it('task title should be populated in the input field', () => {
+            ionContentElement =  fixture.nativeElement.querySelector('ion-content');
+            console.log(ionContentElement);
+            const inputElement = ionContentElement.querySelector('ion-input');
+            console.log(inputElement);
+            expect(inputElement.inner).toEqual('meeting1');
+        });
+       /*
+        it('smething', () => {
+            const  taskService = TestBed.get(TaskService);
+            taskService.getTasks();
+            component.taskDetails = taskService.getTaskDetails(1);
+            const value = fixture.nativeElement.querySelector('ion-content');
+            fixture.detectChanges();
+            const content = value.textContent;
+            console.log('content is', content);
+            expect(content).toContain({
+                    title: 'meeting',
+                    createdOn: '12/08/2019',
+                    important: true,
+                    dueDate: '12/08/2019'
+                });
+        })*/
+    });
 });
+
