@@ -14,26 +14,21 @@ export class TasksListPage {
   constructor(private taskservice: TaskService, public router: Router) {
     this.tasks = this.taskservice.getTask();
   }
-  unImportant(task: Task): null {
+  unImportant(task: Task) {
     task.important = !task.important;
     this.taskservice.updateTask(task);
-    return null;
   }
-  important(task: Task): null {
+  important(task: Task) {
     task.important = !task.important;
     this.taskservice.updateTask(task);
-    return null;
   }
-  taskDetails(task: Task): null {
+  taskDetails(task: Task) {
     this.router.navigate(['tasks-list/details', task.id]);
-    return null;
   }
-  deleteTask(id: number): null {
+  deleteTask(id: number) {
     this.tasks = this.taskservice.deleteTask(id);
-    return null;
   }
-  addTask(title: string): null {
+  addTask(title: string) {
    this.tasks = this.taskservice.addTask({title});
-   return null;
   }
 }

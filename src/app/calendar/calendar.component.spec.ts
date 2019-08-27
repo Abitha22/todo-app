@@ -1,5 +1,5 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
 import * as moment from 'moment';
 import { CalendarComponent } from './calendar.component';
 
@@ -37,10 +37,14 @@ describe('CalendarComponent', () => {
           const format = moment(component.myDate, 'DD/MM/YYYY');
           expect(format.isValid()).toBe(true);
         });
-  it('should emit selected date when event is triggered', () => {
+  it('should emit  date when user selects the due date', () => {
           spyOn(component.outDate, 'emit');
-          component.selectedDate(moment().format('DD/MM/YYYY'));
+          component.date(moment().format('DD/MM/YYYY'));
           expect(component.outDate.emit).toHaveBeenCalledWith(moment().format('DD/MM/YYYY'));
         });
-
+  it('select date event should trigger only once', fakeAsync(() => {
+          spyOn(component.outDate, 'emit');
+          component.date(moment().format('DD/MM/YYYY'));
+          expect(component.outDate.emit).toHaveBeenCalledTimes(1);
+        }));
 });

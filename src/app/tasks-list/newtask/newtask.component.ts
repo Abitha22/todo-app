@@ -8,11 +8,10 @@ import { Task } from '../../models/task';
 export class NewtaskComponent {
   @Output()
   outTaskTitle = new EventEmitter<string>();
-  enterTaskTitle(title: HTMLInputElement): null {
+  enterTaskTitle(title: HTMLInputElement) {
     if (title.value !== '') {
       this.outTaskTitle.emit(title.value);
       title.value = '';
     }
-    return null;
   }
 }

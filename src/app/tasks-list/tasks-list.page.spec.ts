@@ -9,6 +9,8 @@ import { Task } from '../models/task';
 import { By } from '@angular/platform-browser';
 import { DetailsPageModule } from '../details/details.module';
 import { Location } from '@angular/common';
+import * as moment from 'moment';
+
 const dummyTasks: Array<Task> = [
   {
     id: 1,
@@ -51,6 +53,9 @@ describe('TasksListPage', () => {
   let service: TaskService;
   let router: Router;
   let location: Location;
+  let tasks ;
+  let deleteTask;
+  let updateTask;
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [TasksListPage],
@@ -75,23 +80,33 @@ describe('TasksListPage', () => {
     router = TestBed.get(Router);
     location = TestBed.get(Location);
     fixture.detectChanges();
+    tasks = spyOn(service, 'getTask').and.returnValue(dummyTasks);
+    deleteTask = spyOn(service, 'deleteTask').and.returnValue([{
+      id: 2,
+      title: 'session',
+      createdOn: '13/09/2019',
+      important: true,
+      dueDate: '13/09/2019'
+    }]);
+    updateTask = spyOn(service, 'updateTask').and.returnValue({
+      id: 2,
+      title: 'sessions',
+      createdOn: '13/09/2019',
+      important: true,
+      dueDate: '13/09/2019'
+    });
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
   it('Should call the TasksService Internally', () => {
-    const getTasks = spyOn(TestBed.get(TaskService), 'getTask');
-    service.getTask();
-    expect(getTasks).toHaveBeenCalled();
+    expect(tasks).toHaveBeenCalled();
   });
   it('should able to get tasks when taskservice is called', fakeAsync(()  => {
-  spyOn(service, 'getTask');
   const element: HTMLDivElement = fixture.nativeElement;
   const expectedTasks = element.querySelectorAll('ion-menu-toggle');
-  const tasks = service.getTask();
-  console.log('expected tasks', tasks);
-  expect(expectedTasks.length).toEqual(dummyTasks.length);
+  expect(expectedTasks.length).toEqual(tasks.length);
   }));
   it('should have three icons in tasks-list', () => {
     const element: HTMLDivElement = fixture.nativeElement;
@@ -118,45 +133,44 @@ describe('TasksListPage', () => {
     expect(icons.getAttribute('name')).toBe('star-outline');
   });
 
-  // describe('TaskDetails', () => {
-  //   it('should have edit icon to update the task', () => {
-  //     const element: HTMLDivElement = fixture.nativeElement;
-  //     const content = element.querySelector('.details');
-  //     expect(content.getAttribute('name')).toBe('create');
-  //   });
-  //   it('should have a edit icon which is placed at right side of the page', () => {
-  //     const element: HTMLDivElement = fixture.nativeElement;
-  //     const content = element.querySelector('.details');
-  //     expect(content.getAttribute('slot')).toBe('end');
-  //   });
-  //   it('should navigate to details page with valid id', () => {
+  describe('TaskDetails', () => {
+    it('should have edit icon to update the task', () => {
+      const element: HTMLDivElement = fixture.nativeElement;
+      const content = element.querySelector('.details');
+      expect(content.getAttribute('name')).toBe('create');
+    });
+    it('should have a edit icon which is placed at right side of the page', () => {
+      const element: HTMLDivElement = fixture.nativeElement;
+      const content = element.querySelector('.details');
+      expect(content.getAttribute('slot')).toBe('end');
+    });
+    // it('should navigate to details page with valid id', () => {
 
-  //   });
-  // });
-  // describe('DeleteTask', () => {
-  //   it('should have trash icon to delete the task', () => {
-  //     const element: HTMLDivElement = fixture.nativeElement;
-  //     const content = element.querySelector('.delete');
-  //     expect(content.getAttribute('name')).toBe('trash');
-  //   });
-  //   it('should have a trash icon which is placed at right side of the page', () => {
-  //     const element: HTMLDivElement = fixture.nativeElement;
-  //     const content = element.querySelector('.delete');
-  //     expect(content.getAttribute('slot')).toBe('end');
-  //   });
-  //   it('should call taskservice to delete the task and display remaining tasks on the page', () => {
-  //     const btn = fixture.debugElement.query(By.css('.details'));
-  //     btn.triggerEventHandler('click', null);
-  //     fixture.detectChanges();
-  //     spyOn(component, 'deleteTask' );
-  //     const tasks = service.deleteTask(1);
-  //     expect(tasks.length).toBe(service.getTask().length);
-  //   });
-  // });
-  // it('newtask component should display using app-newtask selector', () => {
-  //   fixture.detectChanges();
-  //   const element: HTMLDivElement = fixture.nativeElement;
-  //   const content = element.querySelector('app-newtask');
-  //   expect(content).toBeTruthy();
-  //   });
+    // });
+  });
+  describe('DeleteTask', () => {
+    it('should have trash icon to delete the task', () => {
+      const element: HTMLDivElement = fixture.nativeElement;
+      const content = element.querySelector('.delete');
+      expect(content.getAttribute('name')).toBe('trash');
+    });
+    it('should have a trash icon which is placed at right side of the page', () => {
+      const element: HTMLDivElement = fixture.nativeElement;
+      const content = element.querySelector('.delete');
+      expect(content.getAttribute('slot')).toBe('end');
+    });
+    it('should delete the task and display remaining tasks on the page', () => {
+      const btn = fixture.debugElement.query(By.css('.details'));
+      btn.triggerEventHandler('click', null);
+      fixture.detectChanges();
+      component.deleteTask(1);
+      expect(deleteTask.length).toBe(tasks.length);
+    });
+  });
+  it('newtask component should display using app-newtask selector', () => {
+    fixture.detectChanges();
+    const element: HTMLDivElement = fixture.nativeElement;
+    const content = element.querySelector('app-newtask');
+    expect(content).toBeTruthy();
+    });
 });

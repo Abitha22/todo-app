@@ -10,7 +10,7 @@ export class CalendarComponent {
   myDate;
   @Output()
   outDate = new EventEmitter();
-  selectedDate(date) {
+  date(date) {
     this.outDate.emit(date);
   }
 }
