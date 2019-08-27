@@ -80,11 +80,6 @@ describe('TasksListPage', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-  it('should have title tasks', () => {
-    const element: HTMLDivElement = fixture.nativeElement;
-    const title = element.querySelector('ion-title');
-    expect(title.textContent).toBe('Tasks');
-  });
   it('Should call the TasksService Internally', () => {
     const getTasks = spyOn(TestBed.get(TaskService), 'getTask');
     service.getTask();
