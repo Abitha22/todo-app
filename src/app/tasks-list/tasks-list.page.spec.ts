@@ -163,8 +163,8 @@ describe('TasksListPage', () => {
       const btn = fixture.debugElement.query(By.css('.details'));
       btn.triggerEventHandler('click', null);
       fixture.detectChanges();
-      component.deleteTask(1);
-      expect(deleteTask.length).toBe(tasks.length);
+      const deletedTasks = component.deleteTask(1);
+      expect(deletedTasks).toEqual(deleteTask);
     });
   });
   it('newtask component should display using app-newtask selector', () => {
