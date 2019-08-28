@@ -13,28 +13,19 @@ import * as moment from 'moment';
 
 const dummyTasks: Array<Task> = [
   {
-    id: 1,
-    title: 'meeting',
-    createdOn: '12/08/2019',
-    important: true,
-    dueDate: '12/08/2019'
+  id: 1,
+  title: 'meeting',
+  createdOn: '12/08/2019',
+  important: true,
+  dueDate: '12/08/2019'
   },
   {
-    id: 2,
-    title: 'session',
-    createdOn: '13/09/2019',
-    important: true,
-    dueDate: '13/09/2019'
+  id: 2,
+  title: 'session',
+  createdOn: '13/09/2019',
+  important: true,
+  dueDate: '13/09/2019'
   }];
-class MockTaskService {
-  getTask() {
-  }
-  deleteTask() {
-}
-updateTask() {
-
-}
-}
 const fakeActivatedRoute = {
   snapshot: {
     paramMap: {
@@ -60,13 +51,7 @@ describe('TasksListPage', () => {
     TestBed.configureTestingModule({
       declarations: [TasksListPage],
       imports: [RouterTestingModule.withRoutes(routes)],
-      providers: [TaskService,
-        { provide: ActivatedRoute},
-        {
-          provide: TaskService, useClass: MockTaskService
-
-        }
-      ],
+      providers: [TaskService],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
       .compileComponents();
@@ -100,19 +85,33 @@ describe('TasksListPage', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-  it('Should call the TasksService Internally', () => {
+  describe('icons', () => {
+    it('should have a star icon', () => {
+      const element: HTMLDivElement = fixture.nativeElement;
+      const icons = element.querySelectorAll('ion-icon');
+      expect(icons[0]).toBeTruthy();
+    });
+    it('should have create icon', () => {
+      const element: HTMLDivElement = fixture.nativeElement;
+      const icons = element.querySelectorAll('ion-icon');
+      expect(icons[1]).toBeTruthy();
+    });
+    it('should have a trash icon', () => {
+      const element: HTMLDivElement = fixture.nativeElement;
+      const icons = element.querySelectorAll('ion-icon');
+      expect(icons[2]).toBeTruthy();
+    });
+  });
+  it('Should call getTask()', () => {
     expect(tasks).toHaveBeenCalled();
   });
   it('should able to get tasks when taskservice is called', fakeAsync(()  => {
   const element: HTMLDivElement = fixture.nativeElement;
   const expectedTasks = element.querySelectorAll('ion-menu-toggle');
   expect(expectedTasks.length).toEqual(tasks.length);
+  console.log(tasks);
   }));
-  it('should have three icons in tasks-list', () => {
-    const element: HTMLDivElement = fixture.nativeElement;
-    const icons = element.querySelectorAll('ion-icon');
-    expect(icons.length).toBe(3);
-  });
+
   it('should have a icon `star` icon to mark a task to important', () => {
     const element: HTMLDivElement = fixture.nativeElement;
     const icons = element.querySelector('.important');
